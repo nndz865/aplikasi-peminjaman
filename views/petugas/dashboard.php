@@ -1,0 +1,173 @@
+<?php
+$page_title = 'Dashboard Petugas - Aplikasi Peminjaman Alat UKK RPL';
+require_once __DIR__ . '/../layouts/header.php';
+require_once __DIR__ . '/../layouts/sidebar.php';
+require_once __DIR__ . '/../layouts/navbar.php';
+
+$pengajuanMenunggu = $pengajuanMenunggu ?? 0;
+$peminjamanDisetujui = $peminjamanDisetujui ?? 0;
+$peminjamanSelesai = $peminjamanSelesai ?? 0;
+$pengembalianTerlambat = $pengembalianTerlambat ?? 0;
+$totalDenda = $totalDenda ?? 0;
+$recentPengajuan = $recentPengajuan ?? [];
+$baseUrl = $config['base_url'] ?? '';
+?>
+
+<!-- Welcome Banner -->
+<div class="card bg-gradient text-white shadow-lg mb-4 border-0 overflow-hidden position-relative" style="background: linear-gradient(135deg, #1e3a8a 100%, #0f172a 0%);">
+    <div class="position-absolute end-0 bottom-0 opacity-10 pe-4 pb-2">
+        <i class="bi bi-clipboard-check display-1"></i>
+    </div>
+    <div class="card-body p-4 p-md-5 position-relative z-1">
+        <span class="badge bg-dark border border-secondary text-light fw-bold px-3 py-2 mb-2 rounded-pill"><i class="bi bi-shield-lock me-1"></i> Petugas Lab Portal</span>
+        <h1 class="display-6 fw-bold mb-2">Panel Validasi & Monitoring Peminjaman</h1>
+        <p class="lead text-white-50 mb-0">Halo, <strong class="text-white"><?php echo htmlspecialchars($_SESSION['nama_lengkap'] ?? 'Petugas'); ?></strong>! Kelola persetujuan pinjam dan pemantauan pengembalian alat secara presisi.</p>
+    </div>
+</div>
+
+<!-- Statistik Cards -->
+<div class="row g-4 mb-4">
+    <div class="col-xl-3 col-md-6">
+        <div class="card border-0 shadow-sm h-100 bg-white">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center">
+                    <div class="flex-shrink-0 bg-warning bg-opacity-10 text-warning p-3 rounded-4 fs-3">
+                        <i class="bi bi-hourglass-split"></i>
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                        <h6 class="text-muted fw-semibold mb-1 small text-uppercase">Menunggu Validasi</h6>
+                        <h2 class="fw-bold text-dark mb-0"><?php echo number_format((int)$pengajuanMenunggu); ?></h2>
+                    </div>
+                </div>
+                <div class="mt-3 pt-3 border-top small">
+                    <a href="<?php echo htmlspecialchars($baseUrl); ?>/index.php?route=petugas/persetujuan&status=menunggu" class="text-warning fw-bold text-decoration-none d-flex align-items-center justify-content-between">
+                        <span>Proses Pengajuan</span> <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="card border-0 shadow-sm h-100 bg-white">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center">
+                    <div class="flex-shrink-0 bg-primary bg-opacity-10 text-primary p-3 rounded-4 fs-3">
+                        <i class="bi bi-check-circle-fill"></i>
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                        <h6 class="text-muted fw-semibold mb-1 small text-uppercase">Pinjaman Disetujui</h6>
+                        <h2 class="fw-bold text-dark mb-0"><?php echo number_format((int)$peminjamanDisetujui); ?></h2>
+                    </div>
+                </div>
+                <div class="mt-3 pt-3 border-top text-muted small d-flex align-items-center">
+                    <i class="bi bi-box-seam text-primary me-1"></i> Sedang Dipinjam Siswa
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="card border-0 shadow-sm h-100 bg-white">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center">
+                    <div class="flex-shrink-0 bg-success bg-opacity-10 text-success p-3 rounded-4 fs-3">
+                        <i class="bi bi-clipboard-check-fill"></i>
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                        <h6 class="text-muted fw-semibold mb-1 small text-uppercase">Peminjaman Selesai</h6>
+                        <h2 class="fw-bold text-dark mb-0"><?php echo number_format((int)$peminjamanSelesai); ?></h2>
+                    </div>
+                </div>
+                <div class="mt-3 pt-3 border-top text-muted small d-flex align-items-center">
+                    <i class="bi bi-arrow-return-left text-success me-1"></i> Stok Kembali Utuh
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="card border-0 shadow-sm h-100 bg-white">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center">
+                    <div class="flex-shrink-0 bg-danger bg-opacity-10 text-danger p-3 rounded-4 fs-3">
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                        <h6 class="text-muted fw-semibold mb-1 small text-uppercase">Terlambat & Denda</h6>
+                        <h2 class="fw-bold text-dark mb-0"><?php echo number_format((int)$pengembalianTerlambat); ?></h2>
+                    </div>
+                </div>
+                <div class="mt-3 pt-3 border-top text-danger small fw-semibold">
+                    Denda: Rp <?php echo number_format((float)$totalDenda, 0, ',', '.'); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-header bg-white fw-bold py-3 px-4 d-flex justify-content-between align-items-center">
+        <span class="d-flex align-items-center">
+            <i class="bi bi-list-check text-primary fs-5 me-2"></i> Pengajuan Peminjaman Terbaru
+        </span>
+        <a href="<?php echo htmlspecialchars($baseUrl); ?>/index.php?route=petugas/persetujuan" class="btn btn-sm btn-outline-primary rounded-pill px-3">Kelola Semua</a>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="ps-4 py-3">Kode</th>
+                        <th class="py-3">Peminjam</th>
+                        <th class="py-3">Nama Alat</th>
+                        <th class="text-center py-3">Jumlah</th>
+                        <th class="py-3">Tgl Pinjam</th>
+                        <th class="py-3">Rencana Kembali</th>
+                        <th class="py-3">Status</th>
+                        <th class="text-end pe-4 py-3">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (empty($recentPengajuan)): ?>
+                        <tr><td colspan="8" class="text-center py-4 text-muted">Belum ada pengajuan peminjaman.</td></tr>
+                    <?php else: ?>
+                        <?php $count = 0; foreach ($recentPengajuan as $p): if ($count++ >= 5) break; ?>
+                            <tr>
+                                <td class="ps-4 py-3"><code><?php echo htmlspecialchars($p['kode_peminjaman'] ?? ''); ?></code></td>
+                                <td class="fw-semibold py-3"><?php echo htmlspecialchars($p['nama_lengkap'] ?? ''); ?></td>
+                                <td class="py-3"><?php echo htmlspecialchars($p['nama_alat'] ?? ''); ?></td>
+                                <td class="text-center py-3"><span class="badge bg-secondary rounded-pill px-3"><?php echo (int)($p['jumlah'] ?? 0); ?> unit</span></td>
+                                <td class="py-3"><?php echo htmlspecialchars($p['tanggal_pinjam'] ?? ''); ?></td>
+                                <td class="py-3"><?php echo htmlspecialchars($p['tanggal_rencana_kembali'] ?? ''); ?></td>
+                                <td class="py-3">
+                                    <?php 
+                                        $status = $p['status'] ?? 'menunggu';
+                                        $badgeClass = ($status === 'menunggu') ? 'warning text-dark' : (($status === 'disetujui') ? 'primary' : (($status === 'selesai') ? 'success' : 'danger'));
+                                    ?>
+                                    <span class="badge bg-<?php echo $badgeClass; ?> text-capitalize px-3 py-2 rounded-pill">
+                                        <?php echo htmlspecialchars($status); ?>
+                                    </span>
+                                </td>
+                                <td class="text-end pe-4 py-3">
+                                    <?php if ($status === 'menunggu'): ?>
+                                        <a href="<?php echo htmlspecialchars($baseUrl); ?>/index.php?route=petugas/persetujuan/setujui&id=<?php echo (int)$p['id_peminjaman']; ?>" class="btn btn-sm btn-success rounded-pill px-3 me-1" title="Setujui">
+                                            <i class="bi bi-check-lg me-1"></i> Setujui
+                                        </a>
+                                        <a href="<?php echo htmlspecialchars($baseUrl); ?>/index.php?route=petugas/persetujuan/tolak&id=<?php echo (int)$p['id_peminjaman']; ?>" class="btn btn-sm btn-danger rounded-pill px-3" title="Tolak">
+                                            <i class="bi bi-x-lg me-1"></i> Tolak
+                                        </a>
+                                    <?php else: ?>
+                                        <span class="text-muted small">Selesai/Diproses</span>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<?php require_once __DIR__ . '/../layouts/footer.php'; ?>
+
+
+
