@@ -14,6 +14,10 @@ $totalStok = $totalStok ?? 0;
 $kategoriStats = $kategoriStats ?? [];
 $recentLogs = $recentLogs ?? [];
 $baseUrl = $config['base_url'] ?? '';
+
+// Ambil daftar user peminjam khusus untuk tabel admin
+$userModel = new User();
+$daftarPeminjam = $userModel->getAll('peminjam');
 ?>
 
 <!-- Premium Banner -->
@@ -100,6 +104,48 @@ $baseUrl = $config['base_url'] ?? '';
                 </div>
                 <div class="mt-3 pt-3 border-top text-dark small fw-semibold d-flex align-items-center">
                     <i class="bi bi-shield-check text-warning me-1"></i> Unit Terdata Aman
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mb-4">
+    <!-- Tabel Data Peminjam -->
+    <div class="col-12">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white fw-bold py-3 px-4 border-0 d-flex justify-content-between align-items-center">
+                <span class="d-flex align-items-center text-dark">
+                    <i class="bi bi-people-fill text-primary fs-5 me-2"></i> Daftar Data Peminjam Aktif
+                </span>
+                <a href="<?php echo htmlspecialchars($baseUrl); ?>/index.php?route=admin/users" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-semibold">Kelola User</a>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0 small">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="ps-4 py-3 text-dark fw-bold text-uppercase">No</th>
+                                <th class="py-3 text-dark fw-bold text-uppercase">Nama Lengkap</th>
+                                <th class="py-3 text-dark fw-bold text-uppercase">Username</th>
+                                <th class="pe-4 py-3 text-dark fw-bold text-uppercase">Tanggal Dibuat</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (empty($daftarPeminjam)): ?>
+                                <tr><td colspan="4" class="text-center py-4 text-dark fw-semibold">Belum ada data peminjam.</td></tr>
+                            <?php else: ?>
+                                <?php foreach ($daftarPeminjam as $index => $p): ?>
+                                    <tr>
+                                        <td class="ps-4 py-3 text-dark fw-bold"><?php echo $index + 1; ?></td>
+                                        <td class="fw-bold text-dark py-3"><i class="bi bi-person-badge text-primary me-2"></i><?php echo htmlspecialchars($p['nama_lengkap'] ?? ''); ?></td>
+                                        <td class="py-3"><code><?php echo htmlspecialchars($p['username'] ?? ''); ?></code></td>
+                                        <td class="pe-4 py-3 text-dark fw-semibold"><?php echo htmlspecialchars($p['created_at'] ?? ''); ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

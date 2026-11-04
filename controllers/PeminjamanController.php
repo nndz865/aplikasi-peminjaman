@@ -1,6 +1,5 @@
 <?php
 require_once __DIR__ . '/../models/Peminjaman.php';
-require_once __DIR__ . '/../models/Alat.php';
 require_once __DIR__ . '/../models/LogAktivitas.php';
 require_once __DIR__ . '/../middleware/RoleMiddleware.php';
 
@@ -10,7 +9,7 @@ class PeminjamanController {
         RoleMiddleware::allow(['peminjam']);
         $alatModel = new Alat();
         $search = $_GET['search'] ?? '';
-        $alats = $alatModel->getAll(null, $search, true); // Hanya tampilkan stok > 0
+        $alats = $alatModel->getAll(null, $search, true);
 
         $config = include __DIR__ . '/../config/app.php';
         require_once __DIR__ . '/../views/peminjam/daftar-alat.php';
@@ -30,9 +29,10 @@ class PeminjamanController {
     public function peminjamStorePengajuan() {
         RoleMiddleware::allow(['peminjam']);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $config = include __DIR__ . '/../config/app.php';
+
             if (!verify_csrf_token($_POST['csrf_token'] ?? '')) {
                 set_flash_message('danger', 'Token CSRF tidak valid.');
-                $config = include __DIR__ . '/../config/app.php';
                 header('Location: ' . $config['base_url'] . '/index.php?route=peminjam/pengajuan');
                 exit;
             }
@@ -42,8 +42,6 @@ class PeminjamanController {
             $tanggal_pinjam = $_POST['tanggal_pinjam'] ?? date('Y-m-d');
             $tanggal_rencana_kembali = $_POST['tanggal_rencana_kembali'] ?? '';
             $keperluan = trim($_POST['keperluan'] ?? '');
-
-            $config = include __DIR__ . '/../config/app.php';
 
             if (!$id_alat || $jumlah <= 0 || empty($tanggal_rencana_kembali) || empty($keperluan)) {
                 set_flash_message('danger', 'Semua field wajib diisi dengan benar.');
@@ -83,6 +81,61 @@ class PeminjamanController {
         require_once __DIR__ . '/../views/peminjam/riwayat.php';
     }
 
+    public function peminjamPengembalianIndex() {
+        RoleMiddleware::allow(['peminjam']);
+        $peminjamanModel = new Peminjaman();
+        // Ambil transaksi milik peminjam yang berstatus 'disetujui' (siap dikembalikan)
+        $peminjamans = $peminjamanModel->getAll('disetujui', $_SESSION['user_id']);
+
+        $config = include __DIR__ . '/../config/app.php';
+        require_once __DIR__ . '/../views/peminjam/pengembalian.php';
+    }
+
+    public function peminjamProsesPengembalian() {
+        RoleMiddleware::allow(['peminjam']);
+        $config = include __DIR__ . '/../config/app.php';
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!verify_csrf_token($_POST['csrf_token'] ?? '')) {
+                set_flash_message('danger', 'Token CSRF tidak valid.');
+                header('Location: ' . $config['base_url'] . '/index.php?route=peminjam/pengembalian');
+                exit;
+            }
+
+            $id_peminjaman = $_POST['id_peminjaman'] ?? null;
+            $tanggal_kembali_aktual = $_POST['tanggal_kembali_aktual'] ?? date('Y-m-d');
+
+            if (!$id_peminjaman || empty($tanggal_kembali_aktual)) {
+                set_flash_message('danger', 'Data pengembalian tidak lengkap.');
+                header('Location: ' . $config['base_url'] . '/index.php?route=peminjam/pengembalian');
+                exit;
+            }
+
+            $peminjamanModel = new Peminjaman();
+            $peminjaman = $peminjamanModel->findById($id_peminjaman);
+
+            // Pastikan transaksi ini benar-benar milik user yang sedang login
+            if (!$peminjaman || $peminjaman['id_user'] != $_SESSION['user_id']) {
+                set_flash_message('danger', 'Transaksi tidak valid.');
+                header('Location: ' . $config['base_url'] . '/index.php?route=peminjam/pengembalian');
+                exit;
+            }
+
+            $result = $peminjamanModel->prosesPengembalian($id_peminjaman, $tanggal_kembali_aktual);
+
+            if ($result['success']) {
+                $logModel = new LogAktivitas();
+                $logModel->catat($_SESSION['user_id'], 'PENGAJUAN PENGEMBALIAN', "Mengajukan pengembalian peminjaman ID: $id_peminjaman. Denda: Rp " . number_format($result['denda'], 0, ',', '.'));
+                set_flash_message('success', 'Pengajuan pengembalian berhasil diproses. ' . $result['message']);
+            } else {
+                set_flash_message('danger', $result['message']);
+            }
+
+            header('Location: ' . $config['base_url'] . '/index.php?route=peminjam/riwayat');
+            exit;
+        }
+    }
+
     // ----------------- PETUGAS ACTIONS -----------------
     public function petugasPersetujuanIndex() {
         RoleMiddleware::allow(['petugas']);
@@ -118,7 +171,6 @@ class PeminjamanController {
             exit;
         }
 
-        // Periksa stok terkini
         if ($peminjaman['stok_sekarang'] < $peminjaman['jumlah']) {
             set_flash_message('danger', 'Stok Tidak Cukup untuk menyetujui peminjaman ini.');
             header('Location: ' . $config['base_url'] . '/index.php?route=petugas/persetujuan');

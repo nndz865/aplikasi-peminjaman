@@ -20,8 +20,29 @@ switch ($route) {
         $totalStok = $alatModel->sumStok();
         $kategoriStats = $alatModel->getByCategoryStats();
         $recentLogs = $logModel->getAll(10);
+        $daftarPeminjam = $userModel->getAll('peminjam');
 
         require_once __DIR__ . '/../views/admin/dashboard.php';
+        break;
+
+    case 'admin/peminjam':
+        RoleMiddleware::allow(['admin']);
+        $userModel = new User();
+        $search = $_GET['search'] ?? '';
+        $daftarPeminjam = $userModel->getAll('peminjam', $search);
+        
+        $config = include __DIR__ . '/../config/app.php';
+        require_once __DIR__ . '/../views/admin/peminjam.php';
+        break;
+
+    case 'admin/pengembalian':
+        RoleMiddleware::allow(['admin']);
+        $peminjamanModel = new Peminjaman();
+        $peminjamans = $peminjamanModel->getAll('disetujui');
+        $riwayatSelesai = $peminjamanModel->getAll('selesai');
+
+        $config = include __DIR__ . '/../config/app.php';
+        require_once __DIR__ . '/../views/admin/pengembalian.php';
         break;
 
     case 'admin/users':
@@ -94,6 +115,10 @@ switch ($route) {
     case 'admin/log-aktivitas':
         $controller = new LogAktivitasController();
         $controller->index();
+        break;
+    case 'admin/log-aktivitas/export':
+        $controller = new LogAktivitasController();
+        $controller->exportCsv();
         break;
 
     default:

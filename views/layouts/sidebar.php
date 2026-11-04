@@ -20,6 +20,11 @@ $config = include __DIR__ . '/../../config/app.php';
                 </a>
             </li>
             <li>
+                <a href="<?php echo $config['base_url']; ?>/index.php?route=admin/peminjam" class="nav-link <?php echo (isset($_GET['route']) && strpos($_GET['route'], 'admin/peminjam') !== false) ? 'active' : ''; ?>">
+                    <i class="bi bi-person-lines-fill"></i> Data Peminjam
+                </a>
+            </li>
+            <li>
                 <a href="<?php echo $config['base_url']; ?>/index.php?route=admin/kategori" class="nav-link <?php echo (isset($_GET['route']) && strpos($_GET['route'], 'admin/kategori') !== false) ? 'active' : ''; ?>">
                     <i class="bi bi-tags"></i> Kategori Alat
                 </a>
@@ -27,6 +32,11 @@ $config = include __DIR__ . '/../../config/app.php';
             <li>
                 <a href="<?php echo $config['base_url']; ?>/index.php?route=admin/alat" class="nav-link <?php echo (isset($_GET['route']) && strpos($_GET['route'], 'admin/alat') !== false) ? 'active' : ''; ?>">
                     <i class="bi bi-cpu"></i> Data Alat
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo $config['base_url']; ?>/index.php?route=admin/pengembalian" class="nav-link <?php echo (isset($_GET['route']) && strpos($_GET['route'], 'admin/pengembalian') !== false) ? 'active' : ''; ?>">
+                    <i class="bi bi-arrow-return-left"></i> Pengembalian Alat
                 </a>
             </li>
             <li>
@@ -69,6 +79,11 @@ $config = include __DIR__ . '/../../config/app.php';
             <li>
                 <a href="<?php echo $config['base_url']; ?>/index.php?route=peminjam/pengajuan" class="nav-link <?php echo (isset($_GET['route']) && strpos($_GET['route'], 'peminjam/pengajuan') !== false) ? 'active' : ''; ?>">
                     <i class="bi bi-plus-circle"></i> Ajukan Peminjaman
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo $config['base_url']; ?>/index.php?route=peminjam/pengembalian" class="nav-link <?php echo (isset($_GET['route']) && strpos($_GET['route'], 'peminjam/pengembalian') !== false) ? 'active' : ''; ?>">
+                    <i class="bi bi-arrow-return-left"></i> Pengembalian Alat
                 </a>
             </li>
             <li>

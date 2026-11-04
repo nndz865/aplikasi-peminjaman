@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . '/../models/User.php';
 require_once __DIR__ . '/../models/LogAktivitas.php';
+require_once __DIR__ . '/../models/Kategori.php';
+require_once __DIR__ . '/../models/Alat.php';
 require_once __DIR__ . '/../middleware/RoleMiddleware.php';
 
 class UserController {
@@ -165,7 +167,11 @@ class UserController {
         $id = $_GET['id'] ?? null;
         $config = include __DIR__ . '/../config/app.php';
 
-        if (!$id) {
+        $userModel = new User();
+        $targetUser = $userModel->findById($id);
+
+        if (!$targetUser) {
+            set_flash_message('danger', 'Pengguna tidak ditemukan.');
             header('Location: ' . $config['base_url'] . '/index.php?route=admin/users');
             exit;
         }
@@ -176,10 +182,7 @@ class UserController {
             exit;
         }
 
-        $userModel = new User();
-        $targetUser = $userModel->findById($id);
-
-        if ($targetUser && $targetUser['role'] === 'admin') {
+        if ($targetUser['role'] === 'admin') {
             $totalAdmin = $userModel->countAdmin();
             if ($totalAdmin <= 1) {
                 set_flash_message('danger', 'Tidak dapat menghapus akun admin terakhir.');

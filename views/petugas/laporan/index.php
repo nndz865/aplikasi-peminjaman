@@ -1,5 +1,5 @@
 <?php
-$page_title = 'Laporan Transaksi - Aplikasi Peminjaman Alat';
+$page_title = 'Laporan Transaksi - Aplikasi Peminjaman Alat UKK RPL';
 require_once __DIR__ . '/../../layouts/header.php';
 require_once __DIR__ . '/../../layouts/sidebar.php';
 require_once __DIR__ . '/../../layouts/navbar.php';
@@ -14,13 +14,15 @@ $endDateVal = $_GET['end_date'] ?? '';
 ?>
 
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h3 class="fw-bold text-dark m-0"><i class="bi bi-file-earmark-text me-2"></i>Laporan Transaksi Peminjaman</h3>
-    <button onclick="window.print();" class="btn btn-dark shadow-sm d-print-none">
-        <i class="bi bi-printer me-1"></i> Cetak Laporan
-    </button>
+    <h3 class="fw-bold text-dark m-0"><i class="bi bi-file-earmark-text me-2 text-primary"></i>Laporan Transaksi Peminjaman</h3>
+    <div>
+        <button onclick="window.print();" class="btn btn-primary shadow-sm me-2 d-print-none">
+            <i class="bi bi-file-earmark-pdf me-1"></i> Ekspor PDF / Print
+        </button>
+    </div>
 </div>
 
-<div class="card shadow-sm mb-4 d-print-none">
+<div class="card border-0 shadow-sm mb-4 d-print-none">
     <div class="card-body">
         <form method="GET" action="" class="row g-3">
             <input type="hidden" name="route" value="petugas/laporan">
@@ -43,13 +45,13 @@ $endDateVal = $_GET['end_date'] ?? '';
                 <input type="date" name="end_date" class="form-control" value="<?php echo htmlspecialchars($endDateVal); ?>" title="Tanggal Akhir">
             </div>
             <div class="col-md-3">
-                <button type="submit" class="btn btn-primary w-100"><i class="bi bi-search me-1"></i> Filter Laporan</button>
+                <button type="submit" class="btn btn-dark w-100"><i class="bi bi-search me-1"></i> Filter Laporan</button>
             </div>
         </form>
     </div>
 </div>
 
-<div class="card shadow-sm">
+<div class="card border-0 shadow-sm">
     <div class="card-body">
         <div class="text-center mb-4 d-none d-print-block">
             <h4 class="fw-bold mb-1">LAPORAN PEMINJAMAN ALAT PRAKTIKUM UKK RPL</h4>
@@ -103,6 +105,3 @@ $endDateVal = $_GET['end_date'] ?? '';
 </div>
 
 <?php require_once __DIR__ . '/../../layouts/footer.php'; ?>
-
-
-

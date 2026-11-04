@@ -11,110 +11,161 @@ $config = include __DIR__ . '/../../config/app.php';
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-    <!-- Google Fonts Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Custom CSS -->
+    <!-- Google Fonts: Space Grotesk & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Cyberpunk / Brutalist Theme CSS (Overrides Style) -->
     <style>
         :root {
-            --bs-primary: #1e293b;
-            --bs-primary-rgb: 30, 41, 59;
-            --bs-secondary: #3b82f6;
-            --bs-success: #10b981;
-            --bs-warning: #f59e0b;
-            --bs-danger: #ef4444;
-            --bs-body-bg: #f8fafc;
+            --ov-bg: #f4f4f0;
+            --ov-surface: #ffffff;
+            --ov-text: #0d0d0d;
+            --ov-muted: #595959;
+            --ov-border: #0d0d0d;
+            --ov-accent: #ff3300; /* Neon Orange / Red */
+            --ov-yellow: #ffe600;
         }
         body {
-            background-color: var(--bs-body-bg);
+            background-color: var(--ov-bg);
+            color: var(--ov-text);
             font-family: 'Inter', sans-serif;
-            color: #334155;
+            min-height: 100vh;
+        }
+        h1, h2, h3, h4, h5, .brand-font {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.03em;
         }
         .sidebar {
             min-height: 100vh;
-            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
-            color: #fff;
+            background-color: var(--ov-surface);
+            border-right: 3px solid var(--ov-border);
             position: fixed;
             top: 0;
             left: 0;
             width: 270px;
             z-index: 100;
-            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
+            box-shadow: 5px 0 0 0 var(--ov-border);
         }
         .sidebar .brand {
             font-size: 1.1rem;
             font-weight: 700;
             padding: 1.5rem 1.25rem;
-            background: rgba(15, 23, 42, 0.9);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
+            background: var(--ov-accent);
+            color: #fff;
+            border-bottom: 3px solid var(--ov-border);
+            letter-spacing: -0.02em;
         }
         .sidebar .nav-link {
-            color: #94a3b8;
-            padding: 0.8rem 1.25rem;
-            margin: 0.25rem 0.8rem;
-            border-radius: 0.5rem;
-            font-weight: 500;
-            transition: all 0.2s ease;
+            color: var(--ov-text);
+            padding: 0.85rem 1.25rem;
+            margin: 0.4rem 0.75rem;
+            border: 2px solid transparent;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.1s ease;
         }
         .sidebar .nav-link:hover {
-            color: #fff;
-            background-color: rgba(255, 255, 255, 0.06);
-            transform: translateX(3px);
+            background-color: var(--ov-yellow);
+            border-color: var(--ov-border);
+            box-shadow: 3px 3px 0 0 var(--ov-border);
+            transform: translate(-2px, -2px);
         }
         .sidebar .nav-link.active {
+            background-color: var(--ov-text);
             color: #fff;
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+            border-color: var(--ov-border);
+            box-shadow: 4px 4px 0 0 var(--ov-accent);
         }
         .sidebar .nav-link i {
-            margin-right: 0.85rem;
+            margin-right: 0.75rem;
             font-size: 1.1rem;
         }
         .main-content {
             margin-left: 270px;
-            padding: 2.5rem;
+            padding: 3rem;
         }
         .navbar-top {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+            background: var(--ov-surface);
+            border-bottom: 3px solid var(--ov-border);
             margin-left: 270px;
-            padding: 0.85rem 2.5rem;
+            padding: 1rem 3rem;
             position: sticky;
             top: 0;
             z-index: 99;
-            border-bottom: 1px solid #e2e8f0;
+            box-shadow: 0 4px 0 0 rgba(13, 13, 13, 0.05);
         }
         .card {
-            border: none;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
-            border-radius: 0.75rem;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            background-color: var(--ov-surface);
+            border: 3px solid var(--ov-border);
+            border-radius: 0;
+            box-shadow: 6px 6px 0 0 var(--ov-border);
+            transition: all 0.1s ease;
         }
         .card:hover {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+            box-shadow: 8px 8px 0 0 var(--ov-accent);
+            transform: translate(-2px, -2px);
         }
-        .table > :not(caption) > * > * {
-            padding: 1rem 1rem;
+        .card-header {
+            background-color: var(--ov-yellow) !important;
+            border-bottom: 3px solid var(--ov-border) !important;
+            color: var(--ov-text) !important;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            padding: 1rem 1.5rem;
         }
-        .btn {
-            border-radius: 0.5rem;
+        .table {
+            color: var(--ov-text) !important;
+            border-color: var(--ov-border) !important;
+        }
+        .table-light {
+            background-color: #eaeaea !important;
+            color: var(--ov-text) !important;
+            border-color: var(--ov-border) !important;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+        .table-hover tbody tr:hover {
+            background-color: rgba(255, 230, 0, 0.2) !important;
+        }
+        .form-control, .form-select {
+            background-color: #fff;
+            border: 3px solid var(--ov-border);
+            border-radius: 0;
+            color: var(--ov-text);
             font-weight: 500;
-            padding: 0.5rem 1rem;
-            transition: all 0.2s ease;
+            padding: 0.75rem 1rem;
+            box-shadow: 3px 3px 0 0 rgba(13, 13, 13, 0.1);
+        }
+        .form-control:focus, .form-select:focus {
+            background-color: #fff;
+            border-color: var(--ov-accent);
+            box-shadow: 4px 4px 0 0 var(--ov-border);
         }
         .btn-primary {
-            background-color: #3b82f6;
-            border-color: #3b82f6;
-            box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+            background-color: var(--ov-accent);
+            border: 3px solid var(--ov-border);
+            border-radius: 0;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            padding: 0.75rem 1.5rem;
+            box-shadow: 4px 4px 0 0 var(--ov-border);
+            transition: all 0.1s ease;
+            color: #fff;
         }
         .btn-primary:hover {
-            background-color: #2563eb;
-            border-color: #2563eb;
-            transform: translateY(-1px);
+            background-color: var(--ov-yellow);
+            color: var(--ov-text);
+            border-color: var(--ov-border);
+            box-shadow: 6px 6px 0 0 var(--ov-border);
+            transform: translate(-2px, -2px);
+        }
+        .badge {
+            border: 2px solid var(--ov-border);
+            border-radius: 0;
+            font-weight: 700;
+            padding: 0.4em 0.8em;
+            box-shadow: 2px 2px 0 0 var(--ov-border);
         }
         @media (max-width: 768px) {
             .sidebar { width: 100%; position: relative; min-height: auto; }

@@ -35,6 +35,16 @@ switch ($route) {
         $controller->peminjamRiwayat();
         break;
 
+    case 'peminjam/pengembalian':
+        $controller = new PeminjamanController();
+        $controller->peminjamPengembalianIndex();
+        break;
+
+    case 'peminjam/pengembalian/proses':
+        $controller = new PeminjamanController();
+        $controller->peminjamProsesPengembalian();
+        break;
+
     default:
         return false;
 }
