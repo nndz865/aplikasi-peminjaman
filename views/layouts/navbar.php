@@ -2,16 +2,16 @@
 $config = include __DIR__ . '/../../config/app.php';
 ?>
 <!-- Navbar Top -->
-<nav class="navbar navbar-top navbar-expand navbar-light px-4">
-    <div class="container-fluid ps-0">
-        <span class="navbar-brand mb-0 h6 fw-bold text-dark">
-            <i class="bi bi-grid-1x2-fill me-2 text-primary"></i> Pengembangan Soal Aplikasi Peminjaman Alat
-        </span>
-        <ul class="navbar-nav ms-auto align-items-center">
+<nav class="navbar navbar-top navbar-expand navbar-light px-3 px-md-4">
+    <div class="container-fluid ps-0 pe-0">
+        <div class="navbar-brand mb-0 h6 fw-bold text-dark text-truncate py-1" style="max-width: 55vw; min-width: 0;">
+            <i class="bi bi-grid-1x2-fill me-2 text-primary"></i> <span>Aplikasi Peminjaman Alat</span>
+        </div>
+        <ul class="navbar-nav ms-auto align-items-center flex-shrink-0">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text-dark fw-semibold" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <a class="nav-link dropdown-toggle text-dark fw-semibold py-1 px-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="bi bi-person-circle me-1 text-secondary"></i> 
-                    <?php echo htmlspecialchars($_SESSION['nama_lengkap'] ?? 'User'); ?> 
+                    <span class="d-none md-inline"><?php echo htmlspecialchars($_SESSION['nama_lengkap'] ?? 'User'); ?></span>
                     <span class="badge bg-secondary text-capitalize ms-1"><?php echo htmlspecialchars($_SESSION['role'] ?? ''); ?></span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end shadow border-0">
