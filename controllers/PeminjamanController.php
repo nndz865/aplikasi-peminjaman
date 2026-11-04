@@ -152,6 +152,65 @@ class PeminjamanController {
         require_once __DIR__ . '/../views/petugas/persetujuan/index.php';
     }
 
+    public function petugasUbahStatus() {
+        RoleMiddleware::allow(['petugas']);
+        $id = $_GET['id'] ?? null;
+        $statusBaru = $_GET['status'] ?? null;
+        $config = include __DIR__ . '/../config/app.php';
+
+        if (!$id || !in_array($statusBaru, ['menunggu', 'disetujui', 'ditolak', 'selesai'])) {
+            set_flash_message('danger', 'Parameter status tidak valid.');
+            header('Location: ' . $config['base_url'] . '/index.php?route=petugas/persetujuan');
+            exit;
+        }
+
+        $peminjamanModel = new Peminjaman();
+        $peminjaman = $peminjamanModel->findById($id);
+
+        if (!$peminjaman) {
+            set_flash_message('danger', 'Transaksi tidak ditemukan.');
+            header('Location: ' . $config['base_url'] . '/index.php?route=petugas/persetujuan');
+            exit;
+        }
+
+        // Jika mengubah dari disetujui ke menunggu / ditolak, kita perlu mengembalikan stok alat terlebih dahulu karena trigger trg_kurangi_stok mengurangi stok saat status berubah dari menunggu ke disetujui.
+        try {
+            $db = Database::getInstance()->getConnection();
+            $db->beginTransaction();
+
+            if ($peminjaman['status'] === 'disetujui' && in_array($statusBaru, ['menunggu', 'ditolak'])) {
+                // Kembalikan stok alat
+                $stmtStok = $db->prepare("UPDATE alat SET stok = stok + ? WHERE id_alat = ?");
+                $stmtStok->execute([$peminjaman['jumlah'], $peminjaman['id_alat']]);
+            } elseif ($peminjaman['status'] !== 'disetujui' && $statusBaru === 'disetujui') {
+                // Kurangi stok jika sebelumnya bukan disetujui
+                if ($peminjaman['stok_sekarang'] < $peminjaman['jumlah']) {
+                    $db->rollBack();
+                    set_flash_message('danger', 'Stok alat tidak cukup untuk mengubah status menjadi disetujui.');
+                    header('Location: ' . $config['base_url'] . '/index.php?route=petugas/persetujuan');
+                    exit;
+                }
+                $stmtStok = $db->prepare("UPDATE alat SET stok = stok - ? WHERE id_alat = ?");
+                $stmtStok->execute([$peminjaman['jumlah'], $peminjaman['id_alat']]);
+            }
+
+            $stmtUp = $db->prepare("UPDATE peminjaman SET status = ? WHERE id_peminjaman = ?");
+            $stmtUp->execute([$statusBaru, $id]);
+
+            $db->commit();
+
+            $logModel = new LogAktivitas();
+            $logModel->catat($_SESSION['user_id'], 'UBAH STATUS PEMINJAMAN', "Mengubah status peminjaman ID: $id dari {$peminjaman['status']} menjadi $statusBaru");
+            set_flash_message('success', "Status peminjaman berhasil diubah menjadi $statusBaru.");
+        } catch (\Exception $e) {
+            $db->rollBack();
+            set_flash_message('danger', 'Gagal mengubah status: ' . $e->getMessage());
+        }
+
+        header('Location: ' . $config['base_url'] . '/index.php?route=petugas/persetujuan');
+        exit;
+    }
+
     public function petugasSetujui() {
         RoleMiddleware::allow(['petugas']);
         $id = $_GET['id'] ?? null;
@@ -229,6 +288,110 @@ class PeminjamanController {
 
         $config = include __DIR__ . '/../config/app.php';
         require_once __DIR__ . '/../views/petugas/pengembalian/index.php';
+    }
+
+    public function adminUpdateRencanaKembali() {
+        RoleMiddleware::allow(['admin']);
+        $config = include __DIR__ . '/../config/app.php';
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!verify_csrf_token($_POST['csrf_token'] ?? '')) {
+                set_flash_message('danger', 'Token CSRF tidak valid.');
+                header('Location: ' . $config['base_url'] . '/index.php?route=admin/pengembalian');
+                exit;
+            }
+
+            $id_peminjaman = $_POST['id_peminjaman'] ?? null;
+            $tanggal_rencana_kembali = $_POST['tanggal_rencana_kembali'] ?? '';
+
+            if (!$id_peminjaman || empty($tanggal_rencana_kembali)) {
+                set_flash_message('danger', 'Tanggal rencana kembali tidak boleh kosong.');
+                header('Location: ' . $config['base_url'] . '/index.php?route=admin/pengembalian');
+                exit;
+            }
+
+            $peminjamanModel = new Peminjaman();
+            $peminjaman = $peminjamanModel->findById($id_peminjaman);
+
+            if (!$peminjaman || $peminjaman['status'] !== 'disetujui') {
+                set_flash_message('danger', 'Transaksi tidak ditemukan atau tidak aktif.');
+                header('Location: ' . $config['base_url'] . '/index.php?route=admin/pengembalian');
+                exit;
+            }
+
+            if ($tanggal_rencana_kembali < $peminjaman['tanggal_pinjam']) {
+                set_flash_message('danger', 'Tanggal rencana kembali tidak boleh sebelum tanggal pinjam.');
+                header('Location: ' . $config['base_url'] . '/index.php?route=admin/pengembalian');
+                exit;
+            }
+
+            $db = Database::getInstance()->getConnection();
+            $stmt = $db->prepare("UPDATE peminjaman SET tanggal_rencana_kembali = ? WHERE id_peminjaman = ?");
+            $success = $stmt->execute([$tanggal_rencana_kembali, $id_peminjaman]);
+
+            if ($success) {
+                $logModel = new LogAktivitas();
+                $logModel->catat($_SESSION['user_id'], 'UPDATE RENCANA KEMBALI (ADMIN)', "Admin mengubah tanggal rencana kembali peminjaman ID: $id_peminjaman menjadi $tanggal_rencana_kembali");
+                set_flash_message('success', 'Tanggal rencana kembali berhasil diperbarui.');
+            } else {
+                set_flash_message('danger', 'Gagal memperbarui tanggal rencana kembali.');
+            }
+
+            header('Location: ' . $config['base_url'] . '/index.php?route=admin/pengembalian');
+            exit;
+        }
+    }
+
+    public function petugasUpdateRencanaKembali() {
+        RoleMiddleware::allow(['petugas']);
+        $config = include __DIR__ . '/../config/app.php';
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!verify_csrf_token($_POST['csrf_token'] ?? '')) {
+                set_flash_message('danger', 'Token CSRF tidak valid.');
+                header('Location: ' . $config['base_url'] . '/index.php?route=petugas/pengembalian');
+                exit;
+            }
+
+            $id_peminjaman = $_POST['id_peminjaman'] ?? null;
+            $tanggal_rencana_kembali = $_POST['tanggal_rencana_kembali'] ?? '';
+
+            if (!$id_peminjaman || empty($tanggal_rencana_kembali)) {
+                set_flash_message('danger', 'Tanggal rencana kembali tidak boleh kosong.');
+                header('Location: ' . $config['base_url'] . '/index.php?route=petugas/pengembalian');
+                exit;
+            }
+
+            $peminjamanModel = new Peminjaman();
+            $peminjaman = $peminjamanModel->findById($id_peminjaman);
+
+            if (!$peminjaman || $peminjaman['status'] !== 'disetujui') {
+                set_flash_message('danger', 'Transaksi tidak ditemukan atau tidak aktif.');
+                header('Location: ' . $config['base_url'] . '/index.php?route=petugas/pengembalian');
+                exit;
+            }
+
+            if ($tanggal_rencana_kembali < $peminjaman['tanggal_pinjam']) {
+                set_flash_message('danger', 'Tanggal rencana kembali tidak boleh sebelum tanggal pinjam.');
+                header('Location: ' . $config['base_url'] . '/index.php?route=petugas/pengembalian');
+                exit;
+            }
+
+            $db = Database::getInstance()->getConnection();
+            $stmt = $db->prepare("UPDATE peminjaman SET tanggal_rencana_kembali = ? WHERE id_peminjaman = ?");
+            $success = $stmt->execute([$tanggal_rencana_kembali, $id_peminjaman]);
+
+            if ($success) {
+                $logModel = new LogAktivitas();
+                $logModel->catat($_SESSION['user_id'], 'UPDATE RENCANA KEMBALI', "Mengubah tanggal rencana kembali peminjaman ID: $id_peminjaman menjadi $tanggal_rencana_kembali");
+                set_flash_message('success', 'Tanggal rencana kembali berhasil diperbarui.');
+            } else {
+                set_flash_message('danger', 'Gagal memperbarui tanggal rencana kembali.');
+            }
+
+            header('Location: ' . $config['base_url'] . '/index.php?route=petugas/pengembalian');
+            exit;
+        }
     }
 
     public function petugasProsesPengembalian() {

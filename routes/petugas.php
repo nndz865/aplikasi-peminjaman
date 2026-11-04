@@ -23,6 +23,10 @@ switch ($route) {
         $controller = new PeminjamanController();
         $controller->petugasPersetujuanIndex();
         break;
+    case 'petugas/persetujuan/ubah-status':
+        $controller = new PeminjamanController();
+        $controller->petugasUbahStatus();
+        break;
     case 'petugas/persetujuan/setujui':
         $controller = new PeminjamanController();
         $controller->petugasSetujui();
@@ -35,6 +39,10 @@ switch ($route) {
     case 'petugas/pengembalian':
         $controller = new PeminjamanController();
         $controller->petugasPengembalianIndex();
+        break;
+    case 'petugas/pengembalian/update-rencana':
+        $controller = new PeminjamanController();
+        $controller->petugasUpdateRencanaKembali();
         break;
     case 'petugas/pengembalian/proses':
         $controller = new PeminjamanController();

@@ -41,7 +41,7 @@ require_once __DIR__ . '/../../layouts/navbar.php';
 
 <div class="card shadow-sm">
     <div class="card-body p-0">
-        <div class="table-responsive">
+        <div class="table-responsive overflow-visible">
             <table class="table table-hover align-middle mb-0">
                 <thead class="table-dark">
                     <tr>
@@ -74,18 +74,19 @@ require_once __DIR__ . '/../../layouts/navbar.php';
                                         <?php echo $p['status']; ?>
                                     </span>
                                 </td>
-                                <td class="text-end pe-4">
-                                    <?php if ($p['status'] === 'menunggu'): ?>
-                                        <a href="<?php echo $config['base_url']; ?>/index.php?route=petugas/persetujuan/setujui&id=<?php echo $p['id_peminjaman']; ?>" class="btn btn-sm btn-success me-1" onclick="return confirm('Setujui peminjaman ini? Stok akan dikurangi otomatis.');" title="Setujui">
-                                            <i class="bi bi-check-lg"></i>
-                                        </a>
-                                        <a href="<?php echo $config['base_url']; ?>/index.php?route=petugas/persetujuan/tolak&id=<?php echo $p['id_peminjaman']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Tolak peminjaman ini?');" title="Tolak">
-                                            <i class="bi bi-x-lg"></i>
-                                        </a>
-                                    <?php else: ?>
-                                        <span class="text-muted small">Selesai/Diproses</span>
-                                    <?php endif; ?>
-                                </td>
+                                 <td class="text-end pe-4" style="position: relative;">
+                                     <div class="dropdown">
+                                         <button class="btn btn-sm btn-outline-dark dropdown-toggle fw-semibold" type="button" data-bs-toggle="dropdown">
+                                             Ubah Status
+                                         </button>
+                                         <ul class="dropdown-menu dropdown-menu-end shadow-sm border-2">
+                                             <li><a class="dropdown-item text-warning fw-bold" href="<?php echo $config['base_url']; ?>/index.php?route=petugas/persetujuan/ubah-status&id=<?php echo $p['id_peminjaman']; ?>&status=menunggu" onclick="return confirm('Ubah status menjadi Menunggu?')"><i class="bi bi-clock me-2"></i>Menunggu</a></li>
+                                             <li><a class="dropdown-item text-primary fw-bold" href="<?php echo $config['base_url']; ?>/index.php?route=petugas/persetujuan/ubah-status&id=<?php echo $p['id_peminjaman']; ?>&status=disetujui" onclick="return confirm('Ubah status menjadi Disetujui? Stok akan disesuaikan.')"><i class="bi bi-check-circle me-2"></i>Disetujui</a></li>
+                                             <li><a class="dropdown-item text-danger fw-bold" href="<?php echo $config['base_url']; ?>/index.php?route=petugas/persetujuan/ubah-status&id=<?php echo $p['id_peminjaman']; ?>&status=ditolak" onclick="return confirm('Ubah status menjadi Ditolak / Tidak Disetujui?')"><i class="bi bi-x-circle me-2"></i>Ditolak</a></li>
+                                             <li><a class="dropdown-item text-success fw-bold" href="<?php echo $config['base_url']; ?>/index.php?route=petugas/persetujuan/ubah-status&id=<?php echo $p['id_peminjaman']; ?>&status=selesai" onclick="return confirm('Ubah status menjadi Selesai?')"><i class="bi bi-check2-all me-2"></i>Selesai</a></li>
+                                         </ul>
+                                     </div>
+                                 </td>
                             </tr>
                         <?php endforeach; ?>
                     <?php endif; ?>

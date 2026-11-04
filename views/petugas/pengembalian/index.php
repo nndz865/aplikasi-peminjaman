@@ -50,12 +50,46 @@ require_once __DIR__ . '/../../layouts/navbar.php';
                                         <span class="badge bg-success">Tepat Waktu</span>
                                     <?php endif; ?>
                                 </td>
-                                <td class="text-end pe-4">
-                                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalKembali<?php echo $p['id_peminjaman']; ?>">
-                                        <i class="bi bi-check2-circle me-1"></i> Proses Kembali
-                                    </button>
-                                </td>
-                            </tr>
+                                 <td class="text-end pe-4">
+                                     <button type="button" class="btn btn-sm btn-outline-dark me-1" data-bs-toggle="modal" data-bs-target="#modalUbahRencana<?php echo $p['id_peminjaman']; ?>" title="Ubah Tanggal Rencana Kembali">
+                                         <i class="bi bi-calendar-event"></i> Ubah Tanggal
+                                     </button>
+                                     <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalKembali<?php echo $p['id_peminjaman']; ?>">
+                                         <i class="bi bi-check2-circle me-1"></i> Proses Kembali
+                                     </button>
+                                 </td>
+                             </tr>
+
+                             <!-- Modal Ubah Tanggal Rencana Kembali -->
+                             <div class="modal fade" id="modalUbahRencana<?php echo $p['id_peminjaman']; ?>" tabindex="-1">
+                                 <div class="modal-dialog">
+                                     <div class="modal-content">
+                                         <form action="<?php echo $config['base_url']; ?>/index.php?route=petugas/pengembalian/update-rencana" method="POST">
+                                             <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+                                             <input type="hidden" name="id_peminjaman" value="<?php echo $p['id_peminjaman']; ?>">
+                                             <div class="modal-header">
+                                                 <h5 class="modal-title fw-bold">Ubah Tanggal Rencana Kembali</h5>
+                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                             </div>
+                                             <div class="modal-body text-start">
+                                                 <div class="mb-3">
+                                                     <label class="form-label text-muted small">Kode & Alat</label>
+                                                     <input type="text" class="form-control bg-light" value="<?php echo htmlspecialchars($p['kode_peminjaman'] . ' - ' . $p['nama_alat']); ?>" readonly>
+                                                 </div>
+                                                 <div class="mb-3">
+                                                     <label class="form-label fw-semibold">Tanggal Rencana Kembali Baru</label>
+                                                     <input type="date" name="tanggal_rencana_kembali" class="form-control" value="<?php echo $p['tanggal_rencana_kembali']; ?>" required>
+                                                     <div class="form-text small">Tidak boleh lebih awal dari tanggal pinjam (<?php echo $p['tanggal_pinjam']; ?>).</div>
+                                                 </div>
+                                             </div>
+                                             <div class="modal-footer">
+                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                 <button type="submit" class="btn btn-warning fw-bold">Simpan Perubahan</button>
+                                             </div>
+                                         </form>
+                                     </div>
+                                 </div>
+                             </div>
 
                             <!-- Modal Proses Pengembalian -->
                             <div class="modal fade" id="modalKembali<?php echo $p['id_peminjaman']; ?>" tabindex="-1">

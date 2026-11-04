@@ -44,6 +44,10 @@ switch ($route) {
         $config = include __DIR__ . '/../config/app.php';
         require_once __DIR__ . '/../views/admin/pengembalian.php';
         break;
+    case 'admin/pengembalian/update-rencana':
+        $controller = new PeminjamanController();
+        $controller->adminUpdateRencanaKembali();
+        break;
 
     case 'admin/users':
         $controller = new UserController();

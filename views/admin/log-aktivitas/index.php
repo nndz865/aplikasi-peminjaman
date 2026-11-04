@@ -65,8 +65,8 @@ $baseUrl = $config['base_url'] ?? '';
                 <h5 class="modal-title fw-bold">Cetak Log Aktivitas</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <div class="modal-body text-center py-4">
-                <p class="text-muted">Klik tombol di bawah untuk mencetak atau menyimpan laporan log aktivitas ke format PDF / Print browser.</p>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                 <button onclick="window.print();" class="btn btn-primary px-4">
                     <i class="bi bi-printer me-1"></i> Mulai Cetak
                 </button>

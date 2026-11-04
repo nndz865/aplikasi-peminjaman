@@ -16,8 +16,8 @@ $endDateVal = $_GET['end_date'] ?? '';
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h3 class="fw-bold text-dark m-0"><i class="bi bi-file-earmark-text me-2 text-primary"></i>Laporan Transaksi Peminjaman</h3>
     <div>
-        <button onclick="window.print();" class="btn btn-primary shadow-sm me-2 d-print-none">
-            <i class="bi bi-file-earmark-pdf me-1"></i> Ekspor PDF / Print
+        <button type="button" class="btn btn-dark shadow-sm me-2 d-print-none" data-bs-toggle="modal" data-bs-target="#modalCetakLaporan">
+            <i class="bi bi-printer me-1"></i> Cetak / Print
         </button>
     </div>
 </div>
@@ -104,4 +104,37 @@ $endDateVal = $_GET['end_date'] ?? '';
     </div>
 </div>
 
+</div>
+
+<!-- Modal Cetak -->
+<div class="modal fade" id="modalCetakLaporan" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold">Cetak Laporan Transaksi</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center py-4">
+                <p class="text-muted">Klik tombol di bawah untuk mencetak atau menyimpan laporan transaksi.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                <button onclick="window.print();" class="btn btn-primary px-4">
+                    <i class="bi bi-printer me-1"></i> Mulai Cetak
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <?php require_once __DIR__ . '/../../layouts/footer.php'; ?>
+<style>
+@media print {
+    body { background: #fff !important; color: #000 !important; }
+    .sidebar, .navbar-top, .d-print-none { display: none !important; }
+    .main-content { margin: 0 !important; padding: 0 !important; }
+    .card { border: none !important; box-shadow: none !important; }
+    .table-responsive { overflow: visible !important; }
+    table { width: 100% !important; font-size: 10pt !important; }
+}
+</style>
