@@ -250,12 +250,12 @@ INSERT INTO kategori (nama_kategori, deskripsi) VALUES
 ('Computer Hardware', 'Peralatan pendukung hardware komputer, multimeter, solder, dan power supply');
 
 INSERT INTO alat (id_kategori, nama_alat, deskripsi, stok, kondisi, lokasi, gambar) VALUES
-(1, 'Router Cisco 2911', 'Router modular untuk praktikum jaringan komputer TKJ/RPL', 5, 'Baik', 'Lemari A1 Lab Jaringan', 'assets/img/alat/router-cisco-2911.jpg'),
-(1, 'LAN Tester NF-468', 'Tester kabel UTP RJ45 dan RJ11', 10, 'Baik', 'Rak B2 Lab Jaringan', 'assets/img/alat/lan-tester-nf-468.webp'),
-(2, 'Arduino Uno R3 Starter Kit', 'Kit lengkap mikrokontroler Arduino Uno dengan sensor dasar', 15, 'Baik', 'Lemari C1 Lab RPL', 'assets/img/alat/arduino-uno-r3.jpg'),
-(2, 'Multimeter Digital DT-830D', 'Alat ukur tegangan dan arus listrik digital', 12, 'Baik', 'Rak C2 Lab RPL', 'assets/img/alat/multimeter-dt-830d.avif'),
-(3, 'Kamera DSLR Canon EOS 3000D', 'Kamera dokumentasi kegiatan dan praktikum multimedia', 3, 'Baik', 'Lemari Multimedia M1', 'assets/img/alat/kamera-canon-eos-3000d.png'),
-(4, 'Solder Station 936', 'Alat solder temperatur terkontrol untuk perakitan komponen', 8, 'Baik', 'Rak Toolkit Utama', 'assets/img/alat/solder-station-936.jpg');
+(1, 'Router Cisco 2911', 'Router modular untuk praktikum jaringan komputer TKJ/RPL', 5, 'Baik', 'Lemari A1 Lab Jaringan', 'router-cisco-2911.jpg'),
+(1, 'LAN Tester NF-468', 'Tester kabel UTP RJ45 dan RJ11', 10, 'Baik', 'Rak B2 Lab Jaringan', 'lan-tester-nf-468.webp'),
+(2, 'Arduino Uno R3 Starter Kit', 'Kit lengkap mikrokontroler Arduino Uno dengan sensor dasar', 15, 'Baik', 'Lemari C1 Lab RPL', 'arduino-uno-r3.jpg'),
+(2, 'Multimeter Digital DT-830D', 'Alat ukur tegangan dan arus listrik digital', 12, 'Baik', 'Rak C2 Lab RPL', 'multimeter-dt-830d.avif'),
+(3, 'Kamera DSLR Canon EOS 3000D', 'Kamera dokumentasi kegiatan dan praktikum multimedia', 3, 'Baik', 'Lemari Multimedia M1', 'kamera-canon-eos-3000d.png'),
+(4, 'Solder Station 936', 'Alat solder temperatur terkontrol untuk perakitan komponen', 8, 'Baik', 'Rak Toolkit Utama', 'solder-station-936.jpg');
 
 INSERT INTO log_aktivitas (id_user, aktivitas, deskripsi, ip_address) VALUES
 (1, 'SEEDING', 'Inisialisasi database dan data awal sistem', '127.0.0.1');

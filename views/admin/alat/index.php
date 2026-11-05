@@ -59,7 +59,7 @@ require_once __DIR__ . '/../../layouts/navbar.php';
                         <?php foreach ($alats as $index => $a): ?>
                             <tr>
                                 <td class="ps-4"><?php echo $index + 1; ?></td>
-                                <td><img src="<?php echo !empty($a['gambar']) ? $config['base_url'] . '/' . htmlspecialchars($a['gambar']) : $config['base_url'] . '/assets/img/alat-placeholder.svg'; ?>" alt="<?php echo htmlspecialchars($a['nama_alat']); ?>" style="width:64px;height:48px;object-fit:cover;border-radius:8px"></td>
+                                <td><img src="<?php echo !empty($a['gambar']) ? $config['base_url'] . '/assets/img/alat/' . rawurlencode($a['gambar']) : $config['base_url'] . '/assets/img/alat-placeholder.svg'; ?>" alt="<?php echo htmlspecialchars($a['nama_alat']); ?>" style="width:64px;height:48px;object-fit:cover;border-radius:8px"></td>
                                 <td>
                                     <span class="fw-semibold text-dark"><?php echo htmlspecialchars($a['nama_alat']); ?></span>
                                     <div class="small text-muted"><?php echo htmlspecialchars($a['deskripsi']); ?></div>

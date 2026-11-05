@@ -49,7 +49,7 @@ require_once __DIR__ . '/../../layouts/navbar.php';
                     </div>
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Gambar Alat</label>
-                        <?php if (!empty($alat['gambar'])): ?><img src="<?php echo $config['base_url'] . '/' . htmlspecialchars($alat['gambar']); ?>" alt="<?php echo htmlspecialchars($alat['nama_alat']); ?>" class="d-block rounded mb-2" style="width:120px;height:90px;object-fit:cover"><?php endif; ?>
+                        <?php if (!empty($alat['gambar'])): ?><img src="<?php echo $config['base_url'] . '/assets/img/alat/' . rawurlencode($alat['gambar']); ?>" alt="<?php echo htmlspecialchars($alat['nama_alat']); ?>" class="d-block rounded mb-2" style="width:120px;height:90px;object-fit:cover"><?php endif; ?>
                         <input type="file" name="gambar" class="form-control" accept="image/jpeg,image/png,image/webp">
                         <div class="form-text">Kosongkan jika tidak ingin mengganti. Maksimal 2 MB.</div>
                     </div>

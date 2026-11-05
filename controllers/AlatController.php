@@ -11,10 +11,10 @@ class AlatController {
         $mime = (new finfo(FILEINFO_MIME_TYPE))->file($file['tmp_name']);
         $extensions = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp'];
         if (!isset($extensions[$mime])) return false;
-        $directory = __DIR__ . '/../public/assets/uploads/alat';
+        $directory = __DIR__ . '/../public/assets/img/alat';
         if (!is_dir($directory) && !mkdir($directory, 0755, true)) return false;
         $filename = bin2hex(random_bytes(16)) . '.' . $extensions[$mime];
-        return move_uploaded_file($file['tmp_name'], $directory . '/' . $filename) ? 'assets/uploads/alat/' . $filename : false;
+        return move_uploaded_file($file['tmp_name'], $directory . '/' . $filename) ? $filename : false;
     }
 
     public function index() {
