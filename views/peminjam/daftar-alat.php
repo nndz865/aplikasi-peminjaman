@@ -39,6 +39,7 @@ require_once __DIR__ . '/../layouts/navbar.php';
             <div class="col-md-4">
                 <div class="card shadow-sm h-100">
                     <div class="card-body d-flex flex-column">
+                        <img src="<?php echo !empty($a['gambar']) ? $config['base_url'] . '/' . htmlspecialchars($a['gambar']) : $config['base_url'] . '/assets/img/alat-placeholder.svg'; ?>" alt="<?php echo htmlspecialchars($a['nama_alat']); ?>" class="w-100 mb-3" style="height:180px;object-fit:cover;border-radius:12px">
                         <div class="d-flex justify-content-between align-items-start mb-2">
                             <h5 class="fw-bold text-dark mb-0"><?php echo htmlspecialchars($a['nama_alat']); ?></h5>
                             <span class="badge bg-light text-dark border"><?php echo htmlspecialchars($a['nama_kategori']); ?></span>

@@ -5,6 +5,18 @@ require_once __DIR__ . '/../models/LogAktivitas.php';
 require_once __DIR__ . '/../middleware/RoleMiddleware.php';
 
 class AlatController {
+    private function uploadGambar($file) {
+        if (($file['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_NO_FILE) return null;
+        if (($file['error'] ?? UPLOAD_ERR_OK) !== UPLOAD_ERR_OK || $file['size'] > 2 * 1024 * 1024) return false;
+        $mime = (new finfo(FILEINFO_MIME_TYPE))->file($file['tmp_name']);
+        $extensions = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp'];
+        if (!isset($extensions[$mime])) return false;
+        $directory = __DIR__ . '/../public/assets/uploads/alat';
+        if (!is_dir($directory) && !mkdir($directory, 0755, true)) return false;
+        $filename = bin2hex(random_bytes(16)) . '.' . $extensions[$mime];
+        return move_uploaded_file($file['tmp_name'], $directory . '/' . $filename) ? 'assets/uploads/alat/' . $filename : false;
+    }
+
     public function index() {
         RoleMiddleware::allow(['admin']);
         $alatModel = new Alat();
@@ -44,8 +56,9 @@ class AlatController {
             $stok = (int)($_POST['stok'] ?? 0);
             $kondisi = trim($_POST['kondisi'] ?? 'Baik');
             $lokasi = trim($_POST['lokasi'] ?? '');
+            $gambar = $this->uploadGambar($_FILES['gambar'] ?? []);
 
-            if (empty($id_kategori) || empty($nama_alat) || $stok < 0 || empty($lokasi)) {
+            if ($gambar === false || empty($id_kategori) || empty($nama_alat) || $stok < 0 || empty($lokasi)) {
                 set_flash_message('danger', 'Data alat tidak lengkap atau stok bernilai negatif.');
                 $config = include __DIR__ . '/../config/app.php';
                 header('Location: ' . $config['base_url'] . '/index.php?route=admin/alat/create');
@@ -59,7 +72,8 @@ class AlatController {
                 'deskripsi' => $deskripsi,
                 'stok' => $stok,
                 'kondisi' => $kondisi,
-                'lokasi' => $lokasi
+                'lokasi' => $lokasi,
+                'gambar' => $gambar
             ]);
 
             $config = include __DIR__ . '/../config/app.php';
@@ -117,8 +131,9 @@ class AlatController {
             $stok = (int)($_POST['stok'] ?? 0);
             $kondisi = trim($_POST['kondisi'] ?? 'Baik');
             $lokasi = trim($_POST['lokasi'] ?? '');
+            $gambar = $this->uploadGambar($_FILES['gambar'] ?? []);
 
-            if (!$id || empty($id_kategori) || empty($nama_alat) || $stok < 0 || empty($lokasi)) {
+            if ($gambar === false || !$id || empty($id_kategori) || empty($nama_alat) || $stok < 0 || empty($lokasi)) {
                 set_flash_message('danger', 'Data tidak lengkap atau stok negatif.');
                 $config = include __DIR__ . '/../config/app.php';
                 header('Location: ' . $config['base_url'] . '/index.php?route=admin/alat/edit&id=' . $id);
@@ -126,14 +141,16 @@ class AlatController {
             }
 
             $alatModel = new Alat();
-            $success = $alatModel->update($id, [
+            $data = [
                 'id_kategori' => $id_kategori,
                 'nama_alat' => $nama_alat,
                 'deskripsi' => $deskripsi,
                 'stok' => $stok,
                 'kondisi' => $kondisi,
                 'lokasi' => $lokasi
-            ]);
+            ];
+            if ($gambar !== null) $data['gambar'] = $gambar;
+            $success = $alatModel->update($id, $data);
 
             $config = include __DIR__ . '/../config/app.php';
             if ($success) {

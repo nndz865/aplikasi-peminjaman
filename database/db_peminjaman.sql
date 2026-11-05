@@ -46,6 +46,7 @@ CREATE TABLE alat (
     stok INT NOT NULL CHECK (stok >= 0),
     kondisi VARCHAR(50) NOT NULL DEFAULT 'Baik',
     lokasi VARCHAR(100) NOT NULL,
+    gambar VARCHAR(255) NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_kategori) REFERENCES kategori(id_kategori) ON DELETE RESTRICT ON UPDATE CASCADE,
     INDEX idx_kategori (id_kategori),
@@ -248,13 +249,13 @@ INSERT INTO kategori (nama_kategori, deskripsi) VALUES
 ('Multimedia', 'Peralatan kamera, tripod, lighting, dan audio recorder'),
 ('Computer Hardware', 'Peralatan pendukung hardware komputer, multimeter, solder, dan power supply');
 
-INSERT INTO alat (id_kategori, nama_alat, deskripsi, stok, kondisi, lokasi) VALUES
-(1, 'Router Cisco 2911', 'Router modular untuk praktikum jaringan komputer TKJ/RPL', 5, 'Baik', 'Lemari A1 Lab Jaringan'),
-(1, 'LAN Tester NF-468', 'Tester kabel UTP RJ45 dan RJ11', 10, 'Baik', 'Rak B2 Lab Jaringan'),
-(2, 'Arduino Uno R3 Starter Kit', 'Kit lengkap mikrokontroler Arduino Uno dengan sensor dasar', 15, 'Baik', 'Lemari C1 Lab RPL'),
-(2, 'Multimeter Digital DT-830D', 'Alat ukur tegangan dan arus listrik digital', 12, 'Baik', 'Rak C2 Lab RPL'),
-(3, 'Kamera DSLR Canon EOS 3000D', 'Kamera dokumentasi kegiatan dan praktikum multimedia', 3, 'Baik', 'Lemari Multimedia M1'),
-(4, 'Solder Station 936', 'Alat solder temperatur terkontrol untuk perakitan komponen', 8, 'Baik', 'Rak Toolkit Utama');
+INSERT INTO alat (id_kategori, nama_alat, deskripsi, stok, kondisi, lokasi, gambar) VALUES
+(1, 'Router Cisco 2911', 'Router modular untuk praktikum jaringan komputer TKJ/RPL', 5, 'Baik', 'Lemari A1 Lab Jaringan', 'assets/img/alat/router-cisco-2911.svg'),
+(1, 'LAN Tester NF-468', 'Tester kabel UTP RJ45 dan RJ11', 10, 'Baik', 'Rak B2 Lab Jaringan', 'assets/img/alat/lan-tester-nf-468.svg'),
+(2, 'Arduino Uno R3 Starter Kit', 'Kit lengkap mikrokontroler Arduino Uno dengan sensor dasar', 15, 'Baik', 'Lemari C1 Lab RPL', 'assets/img/alat/arduino-uno-r3.svg'),
+(2, 'Multimeter Digital DT-830D', 'Alat ukur tegangan dan arus listrik digital', 12, 'Baik', 'Rak C2 Lab RPL', 'assets/img/alat/multimeter-dt-830d.svg'),
+(3, 'Kamera DSLR Canon EOS 3000D', 'Kamera dokumentasi kegiatan dan praktikum multimedia', 3, 'Baik', 'Lemari Multimedia M1', 'assets/img/alat/kamera-canon-eos-3000d.svg'),
+(4, 'Solder Station 936', 'Alat solder temperatur terkontrol untuk perakitan komponen', 8, 'Baik', 'Rak Toolkit Utama', 'assets/img/alat/solder-station-936.svg');
 
 INSERT INTO log_aktivitas (id_user, aktivitas, deskripsi, ip_address) VALUES
 (1, 'SEEDING', 'Inisialisasi database dan data awal sistem', '127.0.0.1');

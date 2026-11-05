@@ -41,19 +41,7 @@ class Alat {
     }
 
     public function create($data) {
-        $stmt = $this->db->prepare("INSERT INTO alat (id_kategori, nama_alat, deskripsi, stok, kondisi, lokasi) VALUES (?, ?, ?, ?, ?, ?)");
-        return $stmt->execute([
-            $data['id_kategori'],
-            $data['nama_alat'],
-            $data['deskripsi'],
-            $data['stok'],
-            $data['kondisi'],
-            $data['lokasi']
-        ]);
-    }
-
-    public function update($id, $data) {
-        $stmt = $this->db->prepare("UPDATE alat SET id_kategori = ?, nama_alat = ?, deskripsi = ?, stok = ?, kondisi = ?, lokasi = ? WHERE id_alat = ?");
+        $stmt = $this->db->prepare("INSERT INTO alat (id_kategori, nama_alat, deskripsi, stok, kondisi, lokasi, gambar) VALUES (?, ?, ?, ?, ?, ?, ?)");
         return $stmt->execute([
             $data['id_kategori'],
             $data['nama_alat'],
@@ -61,8 +49,17 @@ class Alat {
             $data['stok'],
             $data['kondisi'],
             $data['lokasi'],
-            $id
+            $data['gambar'] ?? null
         ]);
+    }
+
+    public function update($id, $data) {
+        $fields = "id_kategori = ?, nama_alat = ?, deskripsi = ?, stok = ?, kondisi = ?, lokasi = ?";
+        $params = [$data['id_kategori'], $data['nama_alat'], $data['deskripsi'], $data['stok'], $data['kondisi'], $data['lokasi']];
+        if (array_key_exists('gambar', $data)) { $fields .= ", gambar = ?"; $params[] = $data['gambar']; }
+        $params[] = $id;
+        $stmt = $this->db->prepare("UPDATE alat SET $fields WHERE id_alat = ?");
+        return $stmt->execute($params);
     }
 
     public function delete($id) {

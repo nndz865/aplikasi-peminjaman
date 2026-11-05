@@ -12,7 +12,7 @@ require_once __DIR__ . '/../../layouts/navbar.php';
                 <i class="bi bi-pencil-square me-2 text-primary"></i> Form Edit Alat Praktikum
             </div>
             <div class="card-body">
-                <form action="<?php echo $config['base_url']; ?>/index.php?route=admin/alat/update" method="POST">
+                <form action="<?php echo $config['base_url']; ?>/index.php?route=admin/alat/update" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                     <input type="hidden" name="id_alat" value="<?php echo $alat['id_alat']; ?>">
                     <div class="mb-3">
@@ -46,6 +46,12 @@ require_once __DIR__ . '/../../layouts/navbar.php';
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Lokasi Penyimpanan</label>
                         <input type="text" name="lokasi" class="form-control" value="<?php echo htmlspecialchars($alat['lokasi']); ?>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Gambar Alat</label>
+                        <?php if (!empty($alat['gambar'])): ?><img src="<?php echo $config['base_url'] . '/' . htmlspecialchars($alat['gambar']); ?>" alt="<?php echo htmlspecialchars($alat['nama_alat']); ?>" class="d-block rounded mb-2" style="width:120px;height:90px;object-fit:cover"><?php endif; ?>
+                        <input type="file" name="gambar" class="form-control" accept="image/jpeg,image/png,image/webp">
+                        <div class="form-text">Kosongkan jika tidak ingin mengganti. Maksimal 2 MB.</div>
                     </div>
                     <div class="mb-4">
                         <label class="form-label fw-semibold">Deskripsi</label>

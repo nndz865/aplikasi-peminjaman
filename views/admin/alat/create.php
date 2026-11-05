@@ -12,7 +12,7 @@ require_once __DIR__ . '/../../layouts/navbar.php';
                 <i class="bi bi-plus-circle me-2 text-primary"></i> Form Tambah Alat Praktikum
             </div>
             <div class="card-body">
-                <form action="<?php echo $config['base_url']; ?>/index.php?route=admin/alat/store" method="POST">
+                <form action="<?php echo $config['base_url']; ?>/index.php?route=admin/alat/store" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Nama Alat</label>
@@ -44,6 +44,11 @@ require_once __DIR__ . '/../../layouts/navbar.php';
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Lokasi Penyimpanan</label>
                         <input type="text" name="lokasi" class="form-control" placeholder="Contoh: Lemari A1 Lab Jaringan" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Gambar Alat</label>
+                        <input type="file" name="gambar" class="form-control" accept="image/jpeg,image/png,image/webp">
+                        <div class="form-text">JPG, PNG, WebP. Maksimal 2 MB.</div>
                     </div>
                     <div class="mb-4">
                         <label class="form-label fw-semibold">Deskripsi</label>
