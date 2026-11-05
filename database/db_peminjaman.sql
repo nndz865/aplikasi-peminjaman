@@ -239,9 +239,9 @@ DELIMITER ;
 -- =====================================================
 
 INSERT INTO users (nama_lengkap, username, password, role) VALUES
-('Administrator Utama', 'admin', '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', 'admin'),
-('Petugas Lab RPL', 'petugas', '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', 'petugas'),
-('Siswa Peminjam', 'peminjam', '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', 'peminjam');
+('Administrator Utama', 'admin', '$2y$10$Jf7EIV50sf2wdg7ms6RMH.ZrbSU3RMrEZ01Xm.6EVQNqua/N4o0TS', 'admin'),
+('Petugas Lab RPL', 'petugas', '$2y$10$3t6fmNAQuC6GilRKYJW3Q.cFoGMep3.dx3M3/IfGc4gK0wYq2e8oa', 'petugas'),
+('Siswa Peminjam', 'peminjam', '$2y$10$pcomxLhL123Tf7kTIQz3uOBat1Pkl1y5/kDDXhrrHdKBMYqxQncca', 'peminjam');
 
 INSERT INTO kategori (nama_kategori, deskripsi) VALUES
 ('Networking', 'Peralatan jaringan komputer seperti router, switch, crimping tool, dan LAN tester'),
