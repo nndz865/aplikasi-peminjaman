@@ -7,6 +7,25 @@
                 document.body.appendChild(modalEl);
             });
 
+            document.querySelectorAll('input[type="password"]').forEach(function(input) {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'input-group';
+                input.parentNode.insertBefore(wrapper, input);
+                wrapper.appendChild(input);
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'btn btn-outline-secondary';
+                button.setAttribute('aria-label', 'Tampilkan password');
+                button.innerHTML = '<i class="bi bi-eye"></i>';
+                button.addEventListener('click', function() {
+                    const visible = input.type === 'text';
+                    input.type = visible ? 'password' : 'text';
+                    button.setAttribute('aria-label', visible ? 'Tampilkan password' : 'Sembunyikan password');
+                    button.innerHTML = visible ? '<i class="bi bi-eye"></i>' : '<i class="bi bi-eye-slash"></i>';
+                });
+                wrapper.appendChild(button);
+            });
+
             // Prevent double submission / double click on all forms
             document.querySelectorAll('form').forEach(function(form) {
                 form.addEventListener('submit', function(e) {
