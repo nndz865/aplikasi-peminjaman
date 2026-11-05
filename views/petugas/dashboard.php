@@ -103,6 +103,13 @@ $baseUrl = $config['base_url'] ?? '';
     </div>
 </div>
 
+<?php if ($pengajuanMenunggu > 0 || $pengembalianTerlambat > 0): ?>
+<div class="alert alert-warning border-0 shadow-sm d-flex align-items-center justify-content-between mb-4">
+    <div><i class="bi bi-bell-fill me-2"></i><strong>Perlu tindakan:</strong> <?php echo (int)$pengajuanMenunggu; ?> pengajuan menunggu<?php echo $pengembalianTerlambat > 0 ? ' dan ' . (int)$pengembalianTerlambat . ' pengembalian terlambat.' : '.'; ?></div>
+    <a href="<?php echo htmlspecialchars($baseUrl); ?>/index.php?route=petugas/persetujuan" class="btn btn-sm btn-dark">Tinjau Sekarang</a>
+</div>
+<?php endif; ?>
+
 <div class="card border-0 shadow-sm">
     <div class="card-header bg-white fw-bold py-3 px-4 d-flex justify-content-between align-items-center border-0">
         <span class="d-flex align-items-center text-dark">

@@ -98,6 +98,18 @@ $baseUrl = $config['base_url'] ?? '';
     </div>
 </div>
 
+<div class="row g-3 mb-4">
+    <?php if (($stats['menunggu'] ?? 0) > 0): ?>
+        <div class="col-md-6"><div class="alert alert-warning border-0 shadow-sm mb-0 h-100"><i class="bi bi-hourglass-split me-2"></i><strong>Pengajuan sedang diproses.</strong><br><span class="small">Petugas akan memeriksa pengajuan Anda.</span></div></div>
+    <?php endif; ?>
+    <?php if (($stats['disetujui'] ?? 0) > 0): ?>
+        <div class="col-md-6"><div class="alert alert-primary border-0 shadow-sm mb-0 h-100"><i class="bi bi-calendar-check me-2"></i><strong>Anda memiliki alat yang sedang dipinjam.</strong><br><span class="small">Periksa tanggal pengembalian pada riwayat.</span></div></div>
+    <?php endif; ?>
+    <?php if (($stats['total_denda'] ?? 0) > 0): ?>
+        <div class="col-md-6"><div class="alert alert-danger border-0 shadow-sm mb-0 h-100"><i class="bi bi-exclamation-triangle me-2"></i><strong>Terdapat denda aktif.</strong><br><span class="small">Total: Rp <?php echo number_format((float)$stats['total_denda'], 0, ',', '.'); ?></span></div></div>
+    <?php endif; ?>
+</div>
+
 <div class="row g-4">
     <!-- Katalog Alat Tersedia -->
     <div class="col-lg-6">

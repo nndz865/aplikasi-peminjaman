@@ -110,6 +110,10 @@ $daftarPeminjam = $userModel->getAll('peminjam');
     </div>
 </div>
 
+<div class="alert alert-info border-0 shadow-sm mb-4">
+    <i class="bi bi-info-circle-fill me-2"></i><strong>Kontrol sistem:</strong> gunakan menu Data Alat, Kategori, dan Pengguna untuk menjaga data inventaris tetap akurat.
+</div>
+
 <div class="row g-4 mb-4">
     <!-- Tabel Data Peminjam -->
     <div class="col-12">
