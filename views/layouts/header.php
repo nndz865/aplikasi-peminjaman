@@ -82,6 +82,8 @@ $config = include __DIR__ . '/../../config/app.php';
             margin-right: 0.75rem;
             font-size: 1.1rem;
         }
+        .sidebar-user { border: 2px solid #e5e7eb; border-radius: 14px; background: #f8fafc; }
+        .sidebar-avatar { width: 34px; height: 34px; display: grid; place-items: center; flex: 0 0 auto; border-radius: 10px; background: var(--ov-yellow); border: 2px solid var(--ov-border); }
         .main-content {
             margin-left: 270px;
             padding: 3rem;
@@ -173,7 +175,8 @@ $config = include __DIR__ . '/../../config/app.php';
             box-shadow: 2px 2px 0 0 var(--ov-border);
         }
         @media (max-width: 768px) {
-            .sidebar { width: 100%; position: relative; min-height: auto; }
+            .sidebar { width: 100%; position: relative; min-height: auto; display: none !important; }
+            .sidebar.sidebar-open { display: flex !important; }
             .main-content, .navbar-top { margin-left: 0; }
         }
         @media print {

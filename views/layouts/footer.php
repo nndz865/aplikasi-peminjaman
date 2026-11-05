@@ -7,6 +7,15 @@
                 document.body.appendChild(modalEl);
             });
 
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const appSidebar = document.getElementById('appSidebar');
+            if (sidebarToggle && appSidebar) {
+                sidebarToggle.addEventListener('click', function() {
+                    const open = appSidebar.classList.toggle('sidebar-open');
+                    sidebarToggle.setAttribute('aria-label', open ? 'Tutup menu navigasi' : 'Buka menu navigasi');
+                });
+            }
+
             document.querySelectorAll('input[type="password"]').forEach(function(input) {
                 let wrapper = input.parentElement;
                 if (!wrapper.classList.contains('input-group')) {

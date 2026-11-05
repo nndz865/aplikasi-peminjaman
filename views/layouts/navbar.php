@@ -5,6 +5,7 @@ $config = include __DIR__ . '/../../config/app.php';
 <nav class="navbar navbar-top navbar-expand navbar-light px-3 px-md-4">
     <div class="container-fluid ps-0 pe-0">
         <div class="navbar-brand mb-0 h6 fw-bold text-dark text-truncate py-1" style="max-width: 55vw; min-width: 0;">
+            <button type="button" class="btn btn-sm btn-outline-dark d-md-none me-2" id="sidebarToggle" aria-label="Buka menu navigasi"><i class="bi bi-list"></i></button>
             <i class="bi bi-grid-1x2-fill me-2 text-primary"></i> <span>Aplikasi Peminjaman Alat</span>
         </div>
         <ul class="navbar-nav ms-auto align-items-center flex-shrink-0">

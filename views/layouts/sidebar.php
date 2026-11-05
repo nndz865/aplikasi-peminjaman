@@ -3,9 +3,19 @@ $role = $_SESSION['role'] ?? '';
 $config = include __DIR__ . '/../../config/app.php';
 ?>
 <!-- Sidebar -->
-<div class="sidebar d-flex flex-column flex-shrink-0">
+<div id="appSidebar" class="sidebar d-flex flex-column flex-shrink-0">
     <div class="brand text-white">
         <i class="bi bi-tools text-info me-2"></i>UKK RPL 2026/2027
+    </div>
+    <div class="sidebar-user mx-3 mt-3 mb-2 p-3">
+        <div class="d-flex align-items-center gap-2">
+            <div class="sidebar-avatar"><i class="bi bi-person-fill"></i></div>
+            <div class="text-truncate">
+                <div class="small text-muted">Masuk sebagai</div>
+                <strong class="d-block text-truncate"><?php echo htmlspecialchars($_SESSION['nama_lengkap'] ?? 'User'); ?></strong>
+            </div>
+        </div>
+        <span class="badge bg-light text-dark border mt-2 text-capitalize"><?php echo htmlspecialchars($role); ?></span>
     </div>
     <ul class="nav nav-pills flex-column mb-auto mt-3">
         <?php if ($role === 'admin'): ?>
