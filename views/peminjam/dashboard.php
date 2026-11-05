@@ -113,7 +113,8 @@ $baseUrl = $config['base_url'] ?? '';
                     <table class="table table-hover align-middle mb-0 small">
                         <thead class="table-light">
                             <tr>
-                                <th class="ps-4 py-3 text-dark fw-bold small text-uppercase">Nama Alat</th>
+                                <th class="ps-4 py-3 text-dark fw-bold small text-uppercase">Gambar</th>
+                                <th class="py-3 text-dark fw-bold small text-uppercase">Nama Alat</th>
                                 <th class="py-3 text-dark fw-bold small text-uppercase">Kategori</th>
                                 <th class="text-center py-3 text-dark fw-bold small text-uppercase">Stok</th>
                                 <th class="text-end pe-4 py-3 text-dark fw-bold small text-uppercase">Aksi</th>
@@ -121,11 +122,12 @@ $baseUrl = $config['base_url'] ?? '';
                         </thead>
                         <tbody>
                             <?php if (empty($alats)): ?>
-                               <tr><td colspan="4" class="text-center py-4 text-dark fw-semibold">Tidak ada alat tersedia saat ini.</td></tr>
+                               <tr><td colspan="5" class="text-center py-4 text-dark fw-semibold">Tidak ada alat tersedia saat ini.</td></tr>
                             <?php else: ?>
                                 <?php $count = 0; foreach ($alats as $a): if ($count++ >= 5) break; ?>
                                     <tr>
-                                        <td class="ps-4 py-3 fw-bold text-dark"><?php echo htmlspecialchars($a['nama_alat'] ?? ''); ?></td>
+                                        <td class="ps-4 py-3"><img src="<?php echo !empty($a['gambar']) ? $baseUrl . '/assets/img/alat/' . rawurlencode($a['gambar']) : $baseUrl . '/assets/img/alat-placeholder.svg'; ?>" alt="<?php echo htmlspecialchars($a['nama_alat'] ?? ''); ?>" style="width:64px;height:48px;object-fit:cover;border-radius:8px"></td>
+                                        <td class="py-3 fw-bold text-dark"><?php echo htmlspecialchars($a['nama_alat'] ?? ''); ?></td>
                                         <td class="py-3"><span class="badge bg-light text-dark border border-secondary px-2 py-1 fw-semibold"><?php echo htmlspecialchars($a['nama_kategori'] ?? ''); ?></span></td>
                                         <td class="text-center py-3"><span class="badge bg-success text-white rounded-pill px-3 fw-semibold"><?php echo (int)($a['stok'] ?? 0); ?> unit</span></td>
                                         <td class="text-end pe-4 py-3">
