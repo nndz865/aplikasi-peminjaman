@@ -8,10 +8,13 @@
             });
 
             document.querySelectorAll('input[type="password"]').forEach(function(input) {
-                const wrapper = document.createElement('div');
-                wrapper.className = 'input-group';
-                input.parentNode.insertBefore(wrapper, input);
-                wrapper.appendChild(input);
+                let wrapper = input.parentElement;
+                if (!wrapper.classList.contains('input-group')) {
+                    wrapper = document.createElement('div');
+                    wrapper.className = 'input-group';
+                    input.parentNode.insertBefore(wrapper, input);
+                    wrapper.appendChild(input);
+                }
                 const button = document.createElement('button');
                 button.type = 'button';
                 button.className = 'btn btn-outline-secondary';
