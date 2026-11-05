@@ -41,10 +41,6 @@ $csrfToken = $_SESSION['csrf_token'] ?? '';
                             <input type="date" name="tanggal_pinjam" class="form-control" value="<?php echo date('Y-m-d'); ?>" required>
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">Tanggal Rencana Pengembalian</label>
-                        <input type="date" name="tanggal_rencana_kembali" class="form-control" value="<?php echo date('Y-m-d', strtotime('+3 days')); ?>" required>
-                    </div>
                     <div class="mb-4">
                         <label class="form-label fw-semibold">Keperluan / Keterangan Praktikum</label>
                         <textarea name="keperluan" class="form-control" rows="3" placeholder="Contoh: Praktikum Jaringan Komputer Bab Routing" required></textarea>

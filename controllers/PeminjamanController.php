@@ -40,10 +40,10 @@ class PeminjamanController {
             $id_alat = $_POST['id_alat'] ?? null;
             $jumlah = (int)($_POST['jumlah'] ?? 0);
             $tanggal_pinjam = $_POST['tanggal_pinjam'] ?? date('Y-m-d');
-            $tanggal_rencana_kembali = $_POST['tanggal_rencana_kembali'] ?? '';
+            $tanggal_rencana_kembali = date('Y-m-d', strtotime('+3 days'));
             $keperluan = trim($_POST['keperluan'] ?? '');
 
-            if (!$id_alat || $jumlah <= 0 || empty($tanggal_rencana_kembali) || empty($keperluan)) {
+            if (!$id_alat || $jumlah <= 0 || empty($keperluan)) {
                 set_flash_message('danger', 'Semua field wajib diisi dengan benar.');
                 header('Location: ' . $config['base_url'] . '/index.php?route=peminjam/pengajuan');
                 exit;
