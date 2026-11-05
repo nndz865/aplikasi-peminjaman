@@ -8,6 +8,15 @@ $config = include __DIR__ . '/../../config/app.php';
             <i class="bi bi-grid-1x2-fill me-2 text-primary"></i> <span>Aplikasi Peminjaman Alat</span>
         </div>
         <ul class="navbar-nav ms-auto align-items-center flex-shrink-0">
+            <?php
+                $dashboardRoutes = ['admin' => 'admin/dashboard', 'petugas' => 'petugas/dashboard', 'peminjam' => 'peminjam/dashboard'];
+                $fallbackRoute = $dashboardRoutes[$_SESSION['role'] ?? ''] ?? 'login';
+            ?>
+            <li class="nav-item me-2">
+                <button type="button" class="btn btn-sm btn-outline-dark" onclick="window.history.length > 1 ? window.history.back() : window.location.href='<?php echo $config['base_url']; ?>/index.php?route=<?php echo $fallbackRoute; ?>'" aria-label="Kembali ke halaman sebelumnya">
+                    <i class="bi bi-arrow-left me-1"></i> Kembali
+                </button>
+            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle text-dark fw-semibold py-1 px-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="bi bi-person-circle me-1 text-secondary"></i> 
