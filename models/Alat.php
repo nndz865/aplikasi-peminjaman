@@ -87,6 +87,12 @@ class Alat {
         return $result['total'] ?? 0;
     }
 
+    public function getLowStock($threshold = 2) {
+        $stmt = $this->db->prepare("SELECT id_alat, nama_alat, stok, kondisi FROM alat WHERE stok <= ? ORDER BY stok ASC, nama_alat ASC");
+        $stmt->execute([(int)$threshold]);
+        return $stmt->fetchAll();
+    }
+
     public function getByCategoryStats() {
         $stmt = $this->db->query("SELECT k.nama_kategori, COUNT(a.id_alat) as total_alat, SUM(a.stok) as total_stok FROM kategori k LEFT JOIN alat a ON k.id_kategori = a.id_kategori GROUP BY k.id_kategori");
         return $stmt->fetchAll();

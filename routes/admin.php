@@ -18,6 +18,7 @@ switch ($route) {
         $totalKategori = $kategoriModel->countAll();
         $totalAlat = $alatModel->countAll();
         $totalStok = $alatModel->sumStok();
+        $lowStockAlats = $alatModel->getLowStock();
         $kategoriStats = $alatModel->getByCategoryStats();
         $recentLogs = $logModel->getAll(10);
         $daftarPeminjam = $userModel->getAll('peminjam');

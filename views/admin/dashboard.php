@@ -114,6 +114,27 @@ $daftarPeminjam = $userModel->getAll('peminjam');
     <i class="bi bi-info-circle-fill me-2"></i><strong>Kontrol sistem:</strong> gunakan menu Data Alat, Kategori, dan Pengguna untuk menjaga data inventaris tetap akurat.
 </div>
 
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-white fw-bold py-3 px-4 border-0 d-flex justify-content-between align-items-center">
+        <span class="text-dark"><i class="bi bi-exclamation-diamond-fill text-warning me-2"></i>Monitoring Stok Menipis</span>
+        <a href="<?php echo htmlspecialchars($baseUrl); ?>/index.php?route=admin/alat" class="btn btn-sm btn-outline-primary rounded-pill">Kelola Alat</a>
+    </div>
+    <div class="card-body p-0">
+        <?php if (empty($lowStockAlats)): ?>
+            <div class="p-4 text-success fw-semibold"><i class="bi bi-check-circle-fill me-2"></i>Semua stok alat berada di level aman.</div>
+        <?php else: ?>
+            <div class="table-responsive"><table class="table table-hover align-middle mb-0 small">
+                <thead class="table-light"><tr><th class="ps-4">Nama Alat</th><th>Kondisi</th><th class="text-center">Stok</th></tr></thead>
+                <tbody><?php foreach ($lowStockAlats as $alat): ?><tr>
+                    <td class="ps-4 fw-semibold"><?php echo htmlspecialchars($alat['nama_alat']); ?></td>
+                    <td><?php echo htmlspecialchars($alat['kondisi']); ?></td>
+                    <td class="text-center"><span class="badge bg-<?php echo $alat['stok'] == 0 ? 'danger' : 'warning text-dark'; ?>"><?php echo (int)$alat['stok']; ?> unit</span></td>
+                </tr><?php endforeach; ?></tbody>
+            </table></div>
+        <?php endif; ?>
+    </div>
+</div>
+
 <div class="row g-4 mb-4">
     <!-- Tabel Data Peminjam -->
     <div class="col-12">
