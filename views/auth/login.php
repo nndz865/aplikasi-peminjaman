@@ -60,7 +60,7 @@ $config = include __DIR__ . '/../../config/app.php';
                 <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold"><i class="bi bi-box-arrow-in-right me-1"></i> Masuk</button>
             </form>
 
-            <div class="demo-account mt-4 p-3 rounded-3 small">
+            <div class="demo-account mt-4 p-3 rounded-3 small d-none">
                 <p class="fw-bold mb-2 text-dark"><i class="bi bi-info-circle me-1"></i> Akun demo</p>
                 <div class="row g-2 text-muted">
                     <div class="col-sm-4">Admin<br><code>admin</code> / <code>Admin123!</code></div>
