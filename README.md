@@ -19,7 +19,7 @@ Aplikasi web sistem informasi inventaris dan transaksi peminjaman alat praktik U
 3. Buka **phpMyAdmin** (`http://localhost/phpmyadmin/`) dan buat database baru bernama `db_peminjaman`.
 4. Import file `database/db_peminjaman.sql` ke dalam database `db_peminjaman`.
 5. Akses aplikasi melalui browser di URL:
-   `http://localhost/aplikasi-peminjaman-1/public/`
+   `http://localhost/aplikasi-peminjaman/public/`
 
 ## Akun Demo
 - **Admin**: `admin` / `Admin123!`

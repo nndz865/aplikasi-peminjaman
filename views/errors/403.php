@@ -1,6 +1,6 @@
 <?php
 $page_title = '403 Forbidden - Aplikasi Peminjaman Alat';
-$baseUrl = $config['base_url'] ?? 'http://localhost/aplikasi-peminjaman-1/public';
+$baseUrl = $config['base_url'] ?? 'http://localhost/aplikasi-peminjaman/public';
 require_once __DIR__ . '/../layouts/header.php';
 ?>
 <div class="container text-center py-5" style="margin-top: 10vh;">
