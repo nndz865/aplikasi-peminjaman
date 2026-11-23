@@ -32,6 +32,8 @@ class AuthController {
                 $_SESSION['nama_lengkap'] = $user['nama_lengkap'];
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['role'] = $user['role'];
+                $_SESSION['login_ip'] = $_SERVER['REMOTE_ADDR'] ?? 'Tidak diketahui';
+                $_SESSION['login_at'] = date('Y-m-d H:i:s');
 
                 $logModel = new LogAktivitas();
                 $logModel->catat($user['id_user'], 'LOGIN', 'Pengguna ' . $user['username'] . ' berhasil login.');

@@ -1,6 +1,6 @@
 -- =====================================================
 -- DATABASE: db_peminjaman
--- Uji Kompetensi Keahlian (UKK) RPL 2026/2027
+-- Uji Kompetensi Keahlian (UKK) 2026/2027
 -- =====================================================
 
 CREATE DATABASE IF NOT EXISTS db_peminjaman CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -240,7 +240,7 @@ DELIMITER ;
 
 INSERT INTO users (nama_lengkap, username, password, role) VALUES
 ('Administrator Utama', 'admin', '$2y$10$Jf7EIV50sf2wdg7ms6RMH.ZrbSU3RMrEZ01Xm.6EVQNqua/N4o0TS', 'admin'),
-('Petugas Lab RPL', 'petugas', '$2y$10$3t6fmNAQuC6GilRKYJW3Q.cFoGMep3.dx3M3/IfGc4gK0wYq2e8oa', 'petugas'),
+('Petugas Lab', 'petugas', '$2y$10$3t6fmNAQuC6GilRKYJW3Q.cFoGMep3.dx3M3/IfGc4gK0wYq2e8oa', 'petugas'),
 ('Siswa Peminjam', 'peminjam', '$2y$10$pcomxLhL123Tf7kTIQz3uOBat1Pkl1y5/kDDXhrrHdKBMYqxQncca', 'peminjam');
 
 INSERT INTO kategori (nama_kategori, deskripsi) VALUES
@@ -250,10 +250,10 @@ INSERT INTO kategori (nama_kategori, deskripsi) VALUES
 ('Computer Hardware', 'Peralatan pendukung hardware komputer, multimeter, solder, dan power supply');
 
 INSERT INTO alat (id_kategori, nama_alat, deskripsi, stok, kondisi, lokasi, gambar) VALUES
-(1, 'Router Cisco 2911', 'Router modular untuk praktikum jaringan komputer TKJ/RPL', 5, 'Baik', 'Lemari A1 Lab Jaringan', 'router-cisco-2911.jpg'),
+(1, 'Router Cisco 2911', 'Router modular untuk praktikum jaringan komputer TKJ', 5, 'Baik', 'Lemari A1 Lab Jaringan', 'router-cisco-2911.jpg'),
 (1, 'LAN Tester NF-468', 'Tester kabel UTP RJ45 dan RJ11', 10, 'Baik', 'Rak B2 Lab Jaringan', 'lan-tester-nf-468.webp'),
-(2, 'Arduino Uno R3 Starter Kit', 'Kit lengkap mikrokontroler Arduino Uno dengan sensor dasar', 15, 'Baik', 'Lemari C1 Lab RPL', 'arduino-uno-r3.jpg'),
-(2, 'Multimeter Digital DT-830D', 'Alat ukur tegangan dan arus listrik digital', 12, 'Baik', 'Rak C2 Lab RPL', 'multimeter-dt-830d.avif'),
+(2, 'Arduino Uno R3 Starter Kit', 'Kit lengkap mikrokontroler Arduino Uno dengan sensor dasar', 15, 'Baik', 'Lemari C1 Lab', 'arduino-uno-r3.jpg'),
+(2, 'Multimeter Digital DT-830D', 'Alat ukur tegangan dan arus listrik digital', 12, 'Baik', 'Rak C2 Lab', 'multimeter-dt-830d.avif'),
 (3, 'Kamera DSLR Canon EOS 3000D', 'Kamera dokumentasi kegiatan dan praktikum multimedia', 3, 'Baik', 'Lemari Multimedia M1', 'kamera-canon-eos-3000d.png'),
 (4, 'Solder Station 936', 'Alat solder temperatur terkontrol untuk perakitan komponen', 8, 'Baik', 'Rak Toolkit Utama', 'solder-station-936.jpg');
 

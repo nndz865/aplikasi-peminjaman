@@ -5,7 +5,7 @@ $config = include __DIR__ . '/../../config/app.php';
 <!-- Sidebar -->
 <div id="appSidebar" class="sidebar d-flex flex-column flex-shrink-0">
     <div class="brand text-white">
-        <i class="bi bi-tools text-info me-2"></i>UKK RPL 2026/2027
+        <i class="bi bi-boxes text-info me-2"></i>SISTEM PEMINJAMAN LAB
     </div>
     <div class="sidebar-user mx-3 mt-3 mb-2 p-3">
         <div class="d-flex align-items-center gap-2">
@@ -16,6 +16,8 @@ $config = include __DIR__ . '/../../config/app.php';
             </div>
         </div>
         <span class="badge bg-light text-dark border mt-2 text-capitalize"><?php echo htmlspecialchars($role); ?></span>
+        <div class="small text-muted mt-2"><i class="bi bi-globe2 me-1"></i>IP login: <?php echo htmlspecialchars($_SESSION['login_ip'] ?? 'Tidak tersedia'); ?></div>
+        <div class="small text-muted"><i class="bi bi-calendar3 me-1"></i><?php echo htmlspecialchars($_SESSION['login_at'] ?? ''); ?></div>
     </div>
     <ul class="nav nav-pills flex-column mb-auto mt-3">
         <?php if ($role === 'admin'): ?>

@@ -1,5 +1,5 @@
 # EVALUASI PROYEK & PENGUJIAN APLIKASI
-**Judul:** Aplikasi Peminjaman Alat UKK RPL 2026/2027
+**Judul:** Aplikasi Peminjaman Alat UKK 2026/2027
 
 ## 1. Fitur yang Berjalan Baik
 - Arsitektur modular PHP Native berhasil diterapkan secara bersih (`config`, `controllers`, `models`, `middleware`, `routes`, `views`).

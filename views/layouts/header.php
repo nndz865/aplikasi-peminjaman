@@ -6,7 +6,7 @@ $config = include __DIR__ . '/../../config/app.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $page_title ?? 'Aplikasi Peminjaman Alat UKK RPL'; ?></title>
+    <title><?php echo $page_title ?? 'Sistem Peminjaman Lab'; ?></title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
@@ -45,6 +45,8 @@ $config = include __DIR__ . '/../../config/app.php';
             top: 0;
             left: 0;
             width: 270px;
+            height: 100vh;
+            overflow-y: auto;
             z-index: 100;
             box-shadow: 6px 0 0 0 var(--ov-border);
         }

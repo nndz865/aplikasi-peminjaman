@@ -5,20 +5,27 @@ require_once __DIR__ . '/../layouts/sidebar.php';
 require_once __DIR__ . '/../layouts/navbar.php';
 ?>
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h3 class="fw-bold text-dark m-0"><i class="bi bi-box-seam me-2"></i>Katalog Alat Praktikum Tersedia</h3>
-    <span class="text-muted">Pilih alat yang ingin Anda ajukan</span>
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-4 d-flex flex-wrap align-items-center justify-content-between gap-3">
+        <div>
+            <h3 class="fw-bold text-dark m-0"><i class="bi bi-box-seam text-primary me-2"></i>Katalog Alat Praktikum</h3>
+            <p class="text-muted small mb-0">Jelajahi dan ajukan peminjaman alat untuk kebutuhan praktikum Anda.</p>
+        </div>
+    </div>
 </div>
 
-<div class="card shadow-sm mb-4">
-    <div class="card-body">
-        <form method="GET" action="" class="row g-3">
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-3">
+        <form method="GET" action="" class="row g-2 align-items-center">
             <input type="hidden" name="route" value="peminjam/daftar-alat">
-            <div class="col-md-6">
-                <input type="text" name="search" class="form-control" placeholder="Cari nama alat, lokasi, spesifikasi..." value="<?php echo htmlspecialchars($_GET['search'] ?? ''); ?>">
+            <div class="col-md-9">
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-end-0"><i class="bi bi-search"></i></span>
+                    <input type="text" name="search" class="form-control border-start-0" placeholder="Cari alat (nama, kategori, lokasi)..." value="<?php echo htmlspecialchars($_GET['search'] ?? ''); ?>">
+                </div>
             </div>
             <div class="col-md-3">
-                <button type="submit" class="btn btn-dark w-100"><i class="bi bi-search me-1"></i> Cari Alat</button>
+                <button type="submit" class="btn btn-dark w-100 fw-semibold rounded-pill">Cari Alat</button>
             </div>
         </form>
     </div>

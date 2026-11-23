@@ -1,5 +1,5 @@
 <?php
-$page_title = 'Laporan Transaksi - Aplikasi Peminjaman Alat UKK RPL';
+$page_title = 'Laporan Transaksi - Sistem Peminjaman Lab';
 require_once __DIR__ . '/../../layouts/header.php';
 require_once __DIR__ . '/../../layouts/sidebar.php';
 require_once __DIR__ . '/../../layouts/navbar.php';
@@ -57,7 +57,7 @@ $endDateVal = $_GET['end_date'] ?? '';
 <div class="card border-0 shadow-sm">
     <div class="card-body">
         <div class="text-center mb-4 d-none d-print-block">
-            <h4 class="fw-bold mb-1">LAPORAN PEMINJAMAN ALAT PRAKTIKUM UKK RPL</h4>
+            <h4 class="fw-bold mb-1">LAPORAN PEMINJAMAN ALAT PRAKTIKUM & INVENTARIS</h4>
             <p class="text-muted small mb-0">Dicetak pada: <?php echo date('d-m-Y H:i:s'); ?> oleh <?php echo htmlspecialchars($_SESSION['nama_lengkap'] ?? 'Petugas'); ?></p>
             <hr>
         </div>

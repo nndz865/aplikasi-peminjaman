@@ -1,17 +1,19 @@
-# APLIKASI PEMINJAMAN ALAT UKK RPL 2026/2027
+# SISTEM PEMINJAMAN LAB & INVENTARIS
 
-Aplikasi web sistem informasi inventaris dan transaksi peminjaman alat praktik Uji Kompetensi Keahlian (UKK) Rekayasa Perangkat Lunak Tahun Pelajaran 2026/2027.
+Aplikasi web sistem informasi inventaris dan transaksi peminjaman alat laboratorium, perangkat praktik, serta fasilitas umum secara terpusat, modern, dan real-time.
 
 ## Teknologi
 - Backend: PHP Native 8.2+ (Modular Architecture)
 - Database: MySQL 8 / MariaDB (PDO, Stored Procedures, Functions, Triggers, Foreign Keys)
-- Frontend: HTML5, CSS3, JavaScript, Bootstrap 5, Bootstrap Icons
+- Frontend: HTML5, CSS3, JavaScript, Bootstrap 5, Bootstrap Icons, Chart.js
 
 ## Fitur Utama
 1. **Multi-Role Authentication**: Admin, Petugas, dan Peminjam.
-2. **Admin Module**: CRUD User, CRUD Kategori Alat, CRUD Data Alat, Log Aktivitas.
-3. **Petugas Module**: Validasi & Persetujuan Peminjaman (`sp_pinjam_alat`), Monitoring & Proses Pengembalian (`hitung_denda()`, Triggers stok otomatis), Laporan Transaksi & Cetak HTML.
-4. **Peminjam Module**: Katalog Alat Real-Time, Pengajuan Peminjaman, Riwayat Transaksi, Kalkulasi Denda Pribadi.
+2. **Dashboard & Analitik Visual**: Grafis Chart.js untuk statistik transaksi lab, stok alat per kategori, serta monitoring denda.
+3. **Admin Module**: Manajemen User, Kategori Alat, Data Alat, Pengembalian, dan Log Aktivitas Sistem.
+4. **Petugas Module**: Validasi & Persetujuan Peminjaman (`sp_pinjam_alat`), Proses Pengembalian (`hitung_denda()`, Triggers stok otomatis), Laporan Transaksi & Export CSV / Cetak HTML.
+5. **Peminjam Module**: Katalog Alat Real-Time, Pengajuan Peminjaman, Riwayat Transaksi, dan Monitoring Denda Pribadi.
+6. **Keamanan & Pelacakan**: Pencatatan IP Login dan riwayat waktu masuk pengguna.
 
 ## Instalasi & Cara Menjalankan di Laragon
 1. Pastikan **Laragon** aktif (Apache & MySQL running).

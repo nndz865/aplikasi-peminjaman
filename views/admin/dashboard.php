@@ -1,5 +1,5 @@
 <?php
-$page_title = 'Dashboard Admin - Aplikasi Peminjaman Alat UKK RPL';
+$page_title = 'Dashboard Admin - Sistem Peminjaman Lab';
 require_once __DIR__ . '/../layouts/header.php';
 require_once __DIR__ . '/../layouts/sidebar.php';
 require_once __DIR__ . '/../layouts/navbar.php';
@@ -85,7 +85,7 @@ $daftarPeminjam = $userModel->getAll('peminjam');
                     </div>
                 </div>
                 <div class="mt-3 pt-3 border-top text-dark small fw-semibold d-flex align-items-center">
-                    <i class="bi bi-tools text-info me-1"></i> Lab Praktikum RPL
+                    <i class="bi bi-building text-info me-1"></i> Pusat Inventaris & Laboratorium
                 </div>
             </div>
         </div>

@@ -1,5 +1,5 @@
 <?php
-$page_title = 'Login - Aplikasi Peminjaman Alat UKK RPL';
+$page_title = 'Login - Sistem Peminjaman Lab';
 require_once __DIR__ . '/../layouts/header.php';
 $config = include __DIR__ . '/../../config/app.php';
 ?>

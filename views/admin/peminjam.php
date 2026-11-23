@@ -1,5 +1,5 @@
 <?php
-$page_title = 'Data Peminjam - Aplikasi Peminjaman Alat UKK RPL';
+$page_title = 'Data Peminjam - Sistem Peminjaman Lab';
 require_once __DIR__ . '/../layouts/header.php';
 require_once __DIR__ . '/../layouts/sidebar.php';
 require_once __DIR__ . '/../layouts/navbar.php';

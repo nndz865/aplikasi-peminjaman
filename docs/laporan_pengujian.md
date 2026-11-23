@@ -1,10 +1,10 @@
 # LAPORAN PENGUJIAN & EVALUASI SISTEM
-## APLIKASI PEMINJAMAN ALAT UKK RPL 2026/2027
+## APLIKASI PEMINJAMAN ALAT UKK 2026/2027
 
 ---
 
 ## 1. RINGKASAN EKSEKUTIF
-Dokumen ini berisi hasil pengujian skenario fungsional dan keamanan pada **Aplikasi Peminjaman Alat UKK RPL 2026/2027**. Sistem dirancang menggunakan arsitektur modular PHP Native dan database MySQL 8+ dengan dukungan *Stored Procedure*, *Stored Function*, *Triggers*, dan *Foreign Key Constraints* untuk menjamin integritas data inventaris laboratorium.
+Dokumen ini berisi hasil pengujian skenario fungsional dan keamanan pada **Aplikasi Peminjaman Alat UKK 2026/2027**. Sistem dirancang menggunakan arsitektur modular PHP Native dan database MySQL 8+ dengan dukungan *Stored Procedure*, *Stored Function*, *Triggers*, dan *Foreign Key Constraints* untuk menjamin integritas data inventaris laboratorium.
 
 ---
 
@@ -28,4 +28,4 @@ Dokumen ini berisi hasil pengujian skenario fungsional dan keamanan pada **Aplik
 ## 3. LAPORAN EVALUASI & KESIMPULAN
 1. **Integritas Data & Stok**: Penerapan *Stored Procedure* dan *Triggers* terbukti sangat handal mencegah *race condition* dan memastikan stok alat tidak pernah minus saat peminjaman maupun pengembalian.
 2. **Kenyamanan Pengguna (UX)**: Implementasi pencegahan *double-submit*, modal interaktif tanpa kedip, serta cetak laporan multi-halaman yang optimal membuat sistem sangat responsif dan profesional.
-3. **Kesimpulan**: Aplikasi Peminjaman Alat UKK RPL 2026/2027 telah siap digunakan dan memenuhi seluruh standar fungsional serta keamanan inventaris laboratorium sekolah.
+3. **Kesimpulan**: Aplikasi Peminjaman Alat UKK 2026/2027 telah siap digunakan dan memenuhi seluruh standar fungsional serta keamanan inventaris laboratorium sekolah.
