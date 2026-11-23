@@ -25,6 +25,8 @@ $config = include __DIR__ . '/../../config/app.php';
                     <span class="badge bg-secondary text-capitalize ms-1"><?php echo htmlspecialchars($_SESSION['role'] ?? ''); ?></span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+                    <li><a class="dropdown-item" href="<?php echo $config['base_url']; ?>/index.php?route=profile/edit"><i class="bi bi-person-gear me-2"></i> Pengaturan Profil</a></li>
+                    <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="<?php echo $config['base_url']; ?>/index.php?route=logout"><i class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
                 </ul>
             </li>

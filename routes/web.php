@@ -8,6 +8,7 @@ require_once __DIR__ . '/../controllers/AlatController.php';
 require_once __DIR__ . '/../controllers/PeminjamanController.php';
 require_once __DIR__ . '/../controllers/LaporanController.php';
 require_once __DIR__ . '/../controllers/LogAktivitasController.php';
+require_once __DIR__ . '/../controllers/ProfileController.php';
 
 $route = $_GET['route'] ?? '';
 
@@ -43,6 +44,18 @@ if (file_exists(__DIR__ . '/petugas.php')) {
 if (file_exists(__DIR__ . '/peminjam.php')) {
     $handled = include __DIR__ . '/peminjam.php';
     if ($handled) return;
+}
+
+// Route Profile
+if ($route === 'profile/edit') {
+    $controller = new ProfileController();
+    $controller->edit();
+    return;
+}
+if ($route === 'profile/update') {
+    $controller = new ProfileController();
+    $controller->update();
+    return;
 }
 
 // Jika 404 Not Found
