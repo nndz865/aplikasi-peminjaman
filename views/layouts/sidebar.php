@@ -2,8 +2,9 @@
 $role = $_SESSION['role'] ?? '';
 $config = include __DIR__ . '/../../config/app.php';
 ?>
-<!-- Sidebar -->
-<div id="appSidebar" class="sidebar d-flex flex-column flex-shrink-0">
+<!-- Sidebar menu drawer -->
+<div id="sidebarOverlay" class="sidebar-overlay" aria-hidden="true"></div>
+<div id="appSidebar" class="sidebar d-flex flex-column flex-shrink-0" tabindex="-1">
     <div class="brand text-white">
         <i class="bi bi-boxes text-info me-2"></i>SISTEM PEMINJAMAN LAB
     </div>

@@ -9,17 +9,33 @@
 
             const sidebarToggle = document.getElementById('sidebarToggle');
             const appSidebar = document.getElementById('appSidebar');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
             const mainContent = document.querySelector('.main-content');
             const navbarTop = document.querySelector('.navbar-top');
             
-            if (sidebarToggle && appSidebar) {
-                sidebarToggle.addEventListener('click', function() {
-                    const open = appSidebar.classList.toggle('sidebar-open');
+            function setSidebar(open) {
+                if (!appSidebar) return;
+                appSidebar.classList.toggle('sidebar-open', open);
+                appSidebar.classList.toggle('sidebar-collapsed', open);
+                if (sidebarOverlay) sidebarOverlay.classList.toggle('is-visible', open);
+                if (sidebarOverlay) sidebarOverlay.setAttribute('aria-hidden', open ? 'false' : 'true');
+                if (sidebarToggle) {
                     sidebarToggle.setAttribute('aria-label', open ? 'Tutup menu navigasi' : 'Buka menu navigasi');
                     sidebarToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-                    if (open) {
-                        appSidebar.focus();
-                    }
+                }
+                document.body.classList.toggle('overflow-hidden', open);
+            }
+
+            if (sidebarToggle && appSidebar) {
+                sidebarToggle.addEventListener('click', function() {
+                    setSidebar(!appSidebar.classList.contains('sidebar-open'));
+                });
+                if (sidebarOverlay) sidebarOverlay.addEventListener('click', function() { setSidebar(false); });
+                appSidebar.querySelectorAll('a').forEach(function(link) {
+                    link.addEventListener('click', function() { setSidebar(false); });
+                });
+                document.addEventListener('keydown', function(event) {
+                    if (event.key === 'Escape') setSidebar(false);
                 });
             }
 

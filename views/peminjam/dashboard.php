@@ -22,6 +22,13 @@ $baseUrl = $config['base_url'] ?? '';
     </div>
 </div>
 
+<!-- Quick actions -->
+<div class="row g-3 mb-4">
+    <div class="col-md-4"><a href="<?php echo htmlspecialchars($baseUrl); ?>/index.php?route=peminjam/daftar-alat" class="card h-100 text-decoration-none text-dark"><div class="card-body d-flex align-items-center gap-3"><i class="bi bi-search fs-3 text-primary"></i><div><strong>Jelajahi Katalog</strong><div class="small text-muted">Cari alat yang tersedia</div></div><i class="bi bi-arrow-up-right ms-auto"></i></div></a></div>
+    <div class="col-md-4"><a href="<?php echo htmlspecialchars($baseUrl); ?>/index.php?route=peminjam/pengajuan" class="card h-100 text-decoration-none text-dark"><div class="card-body d-flex align-items-center gap-3"><i class="bi bi-plus-circle-fill fs-3 text-success"></i><div><strong>Ajukan Peminjaman</strong><div class="small text-muted">Buat pengajuan alat baru</div></div><i class="bi bi-arrow-up-right ms-auto"></i></div></a></div>
+    <div class="col-md-4"><a href="<?php echo htmlspecialchars($baseUrl); ?>/index.php?route=peminjam/riwayat" class="card h-100 text-decoration-none text-dark"><div class="card-body d-flex align-items-center gap-3"><i class="bi bi-clock-history fs-3 text-warning"></i><div><strong>Lihat Riwayat</strong><div class="small text-muted">Pantau status dan denda</div></div><i class="bi bi-arrow-up-right ms-auto"></i></div></a></div>
+</div>
+
 <!-- Statistik Cards -->
 <div class="row g-4 mb-4">
     <div class="col-xl-3 col-md-6">

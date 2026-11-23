@@ -58,6 +58,20 @@ $config = include __DIR__ . '/../../config/app.php';
         .sidebar.sidebar-collapsed {
             transform: translateX(0);
         }
+        .sidebar-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.42);
+            backdrop-filter: blur(2px);
+            z-index: 1045;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--ov-transition);
+        }
+        .sidebar-overlay.is-visible {
+            opacity: 1;
+            visibility: visible;
+        }
         .sidebar .brand {
             font-size: 1.1rem;
             font-weight: 800;

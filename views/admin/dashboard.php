@@ -32,6 +32,13 @@ $daftarPeminjam = $userModel->getAll('peminjam');
     </div>
 </div>
 
+<!-- Quick actions -->
+<div class="row g-3 mb-4">
+    <div class="col-md-4"><a href="<?php echo htmlspecialchars($baseUrl); ?>/index.php?route=admin/users/create" class="card h-100 text-decoration-none text-dark"><div class="card-body d-flex align-items-center gap-3"><i class="bi bi-person-plus-fill fs-3 text-primary"></i><div><strong>Tambah Pengguna</strong><div class="small text-muted">Buat akun admin, petugas, atau peminjam</div></div><i class="bi bi-arrow-up-right ms-auto"></i></div></a></div>
+    <div class="col-md-4"><a href="<?php echo htmlspecialchars($baseUrl); ?>/index.php?route=admin/alat/create" class="card h-100 text-decoration-none text-dark"><div class="card-body d-flex align-items-center gap-3"><i class="bi bi-box-seam-fill fs-3 text-success"></i><div><strong>Tambah Inventaris</strong><div class="small text-muted">Catat alat baru ke katalog</div></div><i class="bi bi-arrow-up-right ms-auto"></i></div></a></div>
+    <div class="col-md-4"><a href="<?php echo htmlspecialchars($baseUrl); ?>/index.php?route=admin/log-aktivitas" class="card h-100 text-decoration-none text-dark"><div class="card-body d-flex align-items-center gap-3"><i class="bi bi-shield-check fs-3 text-warning"></i><div><strong>Audit Aktivitas</strong><div class="small text-muted">Pantau aktivitas pengguna</div></div><i class="bi bi-arrow-up-right ms-auto"></i></div></a></div>
+</div>
+
 <!-- Statistik Cards -->
 <div class="row g-4 mb-4">
     <div class="col-xl-3 col-md-6">
