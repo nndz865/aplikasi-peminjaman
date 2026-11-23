@@ -49,7 +49,14 @@ $config = include __DIR__ . '/../../config/app.php';
             left: 0;
             width: 270px;
             height: 100vh;
-            z-index: 100;
+            z-index: 1050;
+            transform: translateX(-100%);
+            transition: var(--ov-transition);
+            box-shadow: 8px 0 0 rgba(26, 26, 26, 0.12);
+        }
+        .sidebar.sidebar-open,
+        .sidebar.sidebar-collapsed {
+            transform: translateX(0);
         }
         .sidebar .brand {
             font-size: 1.1rem;
@@ -89,14 +96,14 @@ $config = include __DIR__ . '/../../config/app.php';
             box-shadow: 3px 3px 0 0 var(--ov-border);
         }
         .main-content {
-            margin-left: 270px;
+            margin-left: 0;
             padding: 2.5rem;
         }
         .navbar-top {
             background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(10px);
             border-bottom: 3px solid var(--ov-border);
-            margin-left: 270px;
+            margin-left: 0;
             padding: 1rem 2.5rem;
             position: sticky;
             top: 0;

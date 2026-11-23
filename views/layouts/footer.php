@@ -14,14 +14,11 @@
             
             if (sidebarToggle && appSidebar) {
                 sidebarToggle.addEventListener('click', function() {
-                    if (window.innerWidth <= 992) {
-                        const open = appSidebar.classList.toggle('sidebar-open');
-                        sidebarToggle.setAttribute('aria-label', open ? 'Tutup menu navigasi' : 'Buka menu navigasi');
-                    } else {
-                        const collapsed = appSidebar.classList.toggle('sidebar-collapsed');
-                        if (mainContent) mainContent.classList.toggle('content-expanded', collapsed);
-                        if (navbarTop) navbarTop.classList.toggle('navbar-expanded', collapsed);
-                        sidebarToggle.setAttribute('aria-label', collapsed ? 'Buka menu navigasi' : 'Tutup menu navigasi');
+                    const open = appSidebar.classList.toggle('sidebar-open');
+                    sidebarToggle.setAttribute('aria-label', open ? 'Tutup menu navigasi' : 'Buka menu navigasi');
+                    sidebarToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    if (open) {
+                        appSidebar.focus();
                     }
                 });
             }
