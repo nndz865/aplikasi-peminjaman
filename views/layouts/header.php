@@ -18,13 +18,16 @@ $config = include __DIR__ . '/../../config/app.php';
     <!-- Theme Inspired by b-egg.farm -->
     <style>
         :root {
-            --ov-bg: #fffbf0;
+            /* Refined Neo-Brutalist Palette */
+            --ov-bg: #f9f7f2;
             --ov-surface: #ffffff;
             --ov-text: #1a1a1a;
             --ov-muted: #666666;
             --ov-border: #1a1a1a;
-            --ov-accent: #ff5500;
-            --ov-yellow: #ffd000;
+            --ov-accent: #3b5bdb; /* More professional blue */
+            --ov-yellow: #fcc419;
+            --ov-shadow: 4px 4px 0px 0px var(--ov-border);
+            --ov-transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
         body {
             background-color: var(--ov-bg);
@@ -32,144 +35,103 @@ $config = include __DIR__ . '/../../config/app.php';
             font-family: 'Plus Jakarta Sans', sans-serif;
             min-height: 100vh;
         }
-        h1, h2, h3, h4, h5, .brand-font {
+        h1, h2, h3, h4, h5 {
             font-family: 'Syne', sans-serif;
             font-weight: 800;
-            letter-spacing: -0.04em;
+            letter-spacing: -0.02em;
         }
         .sidebar {
             min-height: 100vh;
             background-color: var(--ov-surface);
-            border-right: 4px solid var(--ov-border);
+            border-right: 3px solid var(--ov-border);
             position: fixed;
             top: 0;
             left: 0;
             width: 270px;
             height: 100vh;
-            overflow-y: auto;
             z-index: 100;
-            box-shadow: 6px 0 0 0 var(--ov-border);
         }
         .sidebar .brand {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 800;
-            padding: 1.75rem 1.25rem;
+            padding: 1.5rem;
             background: var(--ov-yellow);
             color: var(--ov-text);
-            border-bottom: 4px solid var(--ov-border);
-            letter-spacing: -0.03em;
+            border-bottom: 3px solid var(--ov-border);
+            letter-spacing: -0.01em;
             font-family: 'Syne', sans-serif;
         }
         .sidebar .nav-link {
             color: var(--ov-text);
-            padding: 0.9rem 1.25rem;
-            margin: 0.5rem 0.75rem;
+            padding: 0.8rem 1.25rem;
+            margin: 0.5rem 1rem;
             border: 2px solid transparent;
             font-weight: 600;
-            font-size: 0.9rem;
             border-radius: 12px;
-            transition: all 0.15s ease;
+            transition: var(--ov-transition);
         }
         .sidebar .nav-link:hover {
-            background-color: var(--ov-yellow);
+            background-color: #f1f3f5;
             border-color: var(--ov-border);
-            box-shadow: 3px 3px 0 0 var(--ov-border);
-            transform: translate(-2px, -2px);
         }
         .sidebar .nav-link.active {
             background-color: var(--ov-accent);
             color: #fff;
             border-color: var(--ov-border);
-            box-shadow: 4px 4px 0 0 var(--ov-border);
+            box-shadow: 3px 3px 0 0 var(--ov-border);
         }
-        .sidebar .nav-link i {
-            margin-right: 0.75rem;
-            font-size: 1.1rem;
+        .sidebar-user { 
+            border: 2px solid var(--ov-border); 
+            border-radius: 12px; 
+            background: #fff; 
+            margin: 1rem;
+            padding: 1rem;
+            box-shadow: 3px 3px 0 0 var(--ov-border);
         }
-        .sidebar-user { border: 2px solid #e5e7eb; border-radius: 14px; background: #f8fafc; }
-        .sidebar-avatar { width: 34px; height: 34px; display: grid; place-items: center; flex: 0 0 auto; border-radius: 10px; background: var(--ov-yellow); border: 2px solid var(--ov-border); }
         .main-content {
             margin-left: 270px;
-            padding: 3rem;
+            padding: 2.5rem;
         }
         .navbar-top {
-            background: var(--ov-surface);
-            border-bottom: 4px solid var(--ov-border);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 3px solid var(--ov-border);
             margin-left: 270px;
-            padding: 1rem 3rem;
+            padding: 1rem 2.5rem;
             position: sticky;
             top: 0;
             z-index: 99;
-            box-shadow: 0 4px 0 0 rgba(26, 26, 26, 0.05);
         }
         .card {
             background-color: var(--ov-surface);
-            border: 4px solid var(--ov-border);
-            border-radius: 20px;
-            box-shadow: 6px 6px 0 0 var(--ov-border);
-            transition: all 0.15s ease;
+            border: 3px solid var(--ov-border);
+            border-radius: 16px;
+            box-shadow: var(--ov-shadow);
+            transition: var(--ov-transition);
         }
         .card:hover {
-            box-shadow: 10px 10px 0 0 var(--ov-accent);
-            transform: translateY(-3px);
+            transform: translateY(-2px);
+            box-shadow: 6px 6px 0 0 var(--ov-border);
         }
         .card-header {
-            background-color: var(--ov-yellow) !important;
-            border-bottom: 4px solid var(--ov-border) !important;
-            color: var(--ov-text) !important;
-            font-family: 'Syne', sans-serif;
-            font-weight: 800;
-            padding: 1.25rem 1.5rem;
-            border-top-left-radius: 16px !important;
-            border-top-right-radius: 16px !important;
-        }
-        .table {
-            color: var(--ov-text) !important;
-            border-color: var(--ov-border) !important;
-        }
-        .table-light {
-            background-color: #fff4d1 !important;
-            color: var(--ov-text) !important;
-            border-color: var(--ov-border) !important;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 0.05em;
-        }
-        .table-hover tbody tr:hover {
-            background-color: rgba(255, 208, 0, 0.15) !important;
-        }
-        .form-control, .form-select {
-            background-color: #ffffff;
-            border: 3px solid var(--ov-border);
-            border-radius: 12px;
-            color: var(--ov-text);
-            font-weight: 500;
-            padding: 0.75rem 1rem;
-            box-shadow: 3px 3px 0 0 rgba(26, 26, 26, 0.1);
-        }
-        .form-control:focus, .form-select:focus {
-            background-color: #fff;
-            border-color: var(--ov-accent);
-            box-shadow: 4px 4px 0 0 var(--ov-border);
+            background-color: #f8f9fa !important;
+            border-bottom: 3px solid var(--ov-border) !important;
+            padding: 1rem 1.5rem;
         }
         .btn-primary {
             background-color: var(--ov-accent);
-            border: 3px solid var(--ov-border);
-            border-radius: 12px;
-            font-family: 'Syne', sans-serif;
-            font-weight: 800;
-            padding: 0.75rem 1.5rem;
-            box-shadow: 4px 4px 0 0 var(--ov-border);
-            transition: all 0.15s ease;
+            border: 2px solid var(--ov-border);
+            border-radius: 10px;
+            font-weight: 700;
+            padding: 0.6rem 1.2rem;
+            box-shadow: 3px 3px 0 0 var(--ov-border);
+            transition: var(--ov-transition);
             color: #fff;
         }
         .btn-primary:hover {
-            background-color: var(--ov-yellow);
-            color: var(--ov-text);
-            border-color: var(--ov-border);
-            box-shadow: 6px 6px 0 0 var(--ov-border);
-            transform: translate(-2px, -2px);
+            transform: translate(-1px, -1px);
+            box-shadow: 4px 4px 0 0 var(--ov-border);
+            background-color: #2b48a0;
         }
         .badge {
             border: 2px solid var(--ov-border);
