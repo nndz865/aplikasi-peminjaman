@@ -177,10 +177,83 @@ $daftarPeminjam = $userModel->getAll('peminjam');
     </div>
 </div>
 
-<div class="row g-4">
-    <!-- Statistik Kategori -->
-    <div class="col-lg-6">
+<div class="row g-4 mb-4">
+    <!-- Notifikasi Stok Menipis -->
+    <div class="col-xl-6">
         <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-white fw-bold py-3 px-4 border-0 d-flex justify-content-between align-items-center">
+                <span class="d-flex align-items-center text-dark">
+                    <i class="bi bi-exclamation-triangle-fill text-warning fs-5 me-2"></i> Peringatan Stok Alat Menipis (&le; 2)
+                </span>
+                <span class="badge bg-warning text-dark fw-bold px-3 py-2 rounded-pill"><?php 
+                    $lowStockItems = (new Alat())->getLowStock(2);
+                    echo count($lowStockItems); 
+                ?> Item</span>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0 align-middle small">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="ps-4 py-3 text-dark fw-bold">Nama Alat</th>
+                                <th class="text-center py-3 text-dark fw-bold">Sisa Stok</th>
+                                <th class="pe-4 py-3 text-dark fw-bold">Kondisi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (empty($lowStockItems)): ?>
+                                <tr><td colspan="3" class="text-center py-4 text-dark fw-semibold">Semua stok alat aman (di atas 2 unit).</td></tr>
+                            <?php else: ?>
+                                <?php foreach ($lowStockItems as $item): ?>
+                                    <tr>
+                                        <td class="ps-4 fw-bold text-dark py-3"><i class="bi bi-tools text-warning me-1"></i><?php echo htmlspecialchars($item['nama_alat']); ?></td>
+                                        <td class="text-center"><span class="badge bg-danger text-white px-3 py-2 fw-bold"><?php echo (int)$item['stok']; ?> unit</span></td>
+                                        <td class="pe-4"><span class="badge bg-light text-dark border px-2 py-1"><?php echo htmlspecialchars($item['kondisi']); ?></span></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistik Kategori Alat -->
+    <div class="col-xl-6">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-white fw-bold py-3 px-4 border-0 d-flex align-items-center">
+                <i class="bi bi-bar-chart-fill text-primary fs-5 me-2"></i> <span class="text-dark">Statistik Alat per Kategori</span>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0 align-middle small">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="ps-4 py-3 text-dark fw-bold">Kategori</th>
+                                <th class="text-center py-3 text-dark fw-bold">Total Jenis</th>
+                                <th class="pe-4 py-3 text-dark fw-bold">Total Stok</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (empty($kategoriStats)): ?>
+                                <tr><td colspan="3" class="text-center py-4 text-dark fw-semibold">Belum ada kategori alat.</td></tr>
+                            <?php else: ?>
+                                <?php foreach ($kategoriStats as $stat): ?>
+                                    <tr>
+                                        <td class="ps-4 fw-bold text-dark py-3"><i class="bi bi-tag text-primary me-1"></i><?php echo htmlspecialchars($stat['nama_kategori']); ?></td>
+                                        <td class="text-center"><?php echo (int)$stat['total_alat']; ?> item</td>
+                                        <td class="pe-4"><span class="badge bg-primary text-white rounded-pill px-3"><?php echo (int)$stat['total_stok']; ?> unit</span></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
             <div class="card-header bg-white fw-bold py-3 px-4 border-0 d-flex align-items-center">
                 <i class="bi bi-bar-chart-fill text-primary fs-5 me-2"></i> <span class="text-dark">Statistik Alat per Kategori</span>
             </div>
@@ -215,7 +288,7 @@ $daftarPeminjam = $userModel->getAll('peminjam');
     </div>
 
     <!-- Aktivitas Terbaru -->
-    <div class="col-lg-6">
+    <div class="col-lg-12">
         <div class="card border-0 shadow-sm h-100">
             <div class="card-header bg-white fw-bold py-3 px-4 border-0 d-flex justify-content-between align-items-center">
                 <span class="d-flex align-items-center text-dark">
@@ -252,5 +325,72 @@ $daftarPeminjam = $userModel->getAll('peminjam');
         </div>
     </div>
 </div>
+
+<div class="row g-4 mb-4">
+    <div class="col-12">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white fw-bold py-3 px-4 border-0 d-flex align-items-center">
+                <i class="bi bi-graph-up-arrow text-primary fs-5 me-2"></i> <span class="text-dark">Grafik Distribusi Stok Alat per Kategori</span>
+            </div>
+            <div class="card-body">
+                <canvas id="kategoriChart" height="90"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const ctx = document.getElementById('kategoriChart').getContext('2d');
+    
+    const kategoriLabels = [
+        <?php foreach ($kategoriStats as $stat) { echo '"' . addslashes($stat['nama_kategori']) . '",'; } ?>
+    ];
+    const kategoriStok = [
+        <?php foreach ($kategoriStats as $stat) { echo (int)$stat['total_stok'] . ','; } ?>
+    ];
+    const kategoriTotalAlat = [
+        <?php foreach ($kategoriStats as $stat) { echo (int)$stat['total_alat'] . ','; } ?>
+    ];
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: kategoriLabels,
+            datasets: [{
+                label: 'Total Stok Unit',
+                data: kategoriStok,
+                backgroundColor: 'rgba(255, 85, 0, 0.8)',
+                borderColor: '#1a1a1a',
+                borderWidth: 2,
+                borderRadius: 8
+            }, {
+                label: 'Jumlah Jenis Alat',
+                data: kategoriTotalAlat,
+                backgroundColor: 'rgba(255, 208, 0, 0.8)',
+                borderColor: '#1a1a1a',
+                borderWidth: 2,
+                borderRadius: 8
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        precision: 0
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
 
 <?php require_once __DIR__ . '/../layouts/footer.php'; ?>

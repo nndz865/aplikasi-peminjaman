@@ -5,11 +5,16 @@ require_once __DIR__ . '/../layouts/sidebar.php';
 require_once __DIR__ . '/../layouts/navbar.php';
 ?>
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h3 class="fw-bold text-dark m-0"><i class="bi bi-clock-history me-2"></i>Riwayat Peminjaman & Denda Pribadi</h3>
-    <a href="<?php echo $config['base_url']; ?>/index.php?route=peminjam/pengajuan" class="btn btn-primary shadow-sm">
-        <i class="bi bi-plus-circle me-1"></i> Ajukan Peminjaman
-    </a>
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-4 d-flex flex-wrap align-items-center justify-content-between gap-3">
+        <div>
+            <h3 class="fw-bold text-dark m-0"><i class="bi bi-clock-history text-primary me-2"></i>Riwayat Peminjaman & Denda Pribadi</h3>
+            <p class="text-muted small mb-0">Pantau seluruh status pengajuan, tenggat waktu pengembalian, dan denda Anda secara real-time.</p>
+        </div>
+        <a href="<?php echo $config['base_url']; ?>/index.php?route=peminjam/pengajuan" class="btn btn-primary rounded-pill px-4 fw-semibold">
+            <i class="bi bi-plus-circle me-1"></i> Ajukan Peminjaman
+        </a>
+    </div>
 </div>
 
 <div class="card shadow-sm">

@@ -208,4 +208,52 @@ $baseUrl = $config['base_url'] ?? '';
     </div>
 </div>
 
+<div class="row g-4 mt-2">
+    <div class="col-12">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white fw-bold py-3 px-4 border-0 d-flex align-items-center">
+                <i class="bi bi-graph-up text-primary fs-5 me-2"></i> <span class="text-dark">Grafik Status Peminjaman Pribadi</span>
+            </div>
+            <div class="card-body">
+                <canvas id="peminjamStatsChart" height="80"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const ctx = document.getElementById('peminjamStatsChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Menunggu Validasi', 'Sedang Dipinjam', 'Selesai', 'Ditolak'],
+            datasets: [{
+                data: [
+                    <?php echo (int)($stats['menunggu'] ?? 0); ?>,
+                    <?php echo (int)($stats['disetujui'] ?? 0); ?>,
+                    <?php echo (int)($stats['selesai'] ?? 0); ?>,
+                    <?php echo (int)($stats['ditolak'] ?? 0); ?>
+                ],
+                backgroundColor: [
+                    'rgba(255, 208, 0, 0.8)',
+                    'rgba(13, 110, 253, 0.8)',
+                    'rgba(25, 135, 84, 0.8)',
+                    'rgba(220, 53, 69, 0.8)'
+                ],
+                borderColor: '#1a1a1a',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+});
+</script>
 <?php require_once __DIR__ . '/../layouts/footer.php'; ?>

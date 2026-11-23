@@ -53,6 +53,10 @@ switch ($route) {
         $controller = new LaporanController();
         $controller->index();
         break;
+    case 'petugas/laporan/export-csv':
+        $controller = new LaporanController();
+        $controller->exportCsv();
+        break;
 
     default:
         return false;

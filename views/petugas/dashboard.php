@@ -110,6 +110,17 @@ $baseUrl = $config['base_url'] ?? '';
 </div>
 <?php endif; ?>
 
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-white fw-bold py-3 px-4 d-flex justify-content-between align-items-center border-0">
+        <span class="d-flex align-items-center text-dark">
+            <i class="bi bi-bar-chart-line text-primary fs-5 me-2"></i> Grafik Statistik Status Transaksi Lab
+        </span>
+    </div>
+    <div class="card-body">
+        <canvas id="petugasStatsChart" height="70"></canvas>
+    </div>
+</div>
+
 <div class="card border-0 shadow-sm">
     <div class="card-header bg-white fw-bold py-3 px-4 d-flex justify-content-between align-items-center border-0">
         <span class="d-flex align-items-center text-dark">
@@ -173,5 +184,51 @@ $baseUrl = $config['base_url'] ?? '';
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const ctx = document.getElementById('petugasStatsChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Menunggu Validasi', 'Sedang Dipinjam', 'Peminjaman Selesai', 'Terlambat/Denda'],
+            datasets: [{
+                label: 'Jumlah Transaksi',
+                data: [
+                    <?php echo (int)$pengajuanMenunggu; ?>,
+                    <?php echo (int)$peminjamanDisetujui; ?>,
+                    <?php echo (int)$peminjamanSelesai; ?>,
+                    <?php echo (int)$pengembalianTerlambat; ?>
+                ],
+                backgroundColor: [
+                    'rgba(255, 208, 0, 0.8)',
+                    'rgba(13, 110, 253, 0.8)',
+                    'rgba(25, 135, 84, 0.8)',
+                    'rgba(220, 53, 69, 0.8)'
+                ],
+                borderColor: '#1a1a1a',
+                borderWidth: 2,
+                borderRadius: 8
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        precision: 0
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
 
 <?php require_once __DIR__ . '/../layouts/footer.php'; ?>

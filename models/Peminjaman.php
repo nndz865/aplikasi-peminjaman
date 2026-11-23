@@ -123,21 +123,41 @@ class Peminjaman {
     }
 
     public function countTerlambat() {
-        $stmt = $this->db->query("SELECT COUNT(*) as total FROM peminjaman WHERE status = 'disetujui' AND CURDATE() > tanggal_rencana_kembali");
+        $stmt = $this->db->query("SELECT COUNT(*) as total FROM peminjaman WHERE status = 'disetujui' AND CURRENT_DATE > tanggal_rencana_kembali");
         $res = $stmt->fetch();
         return $res['total'] ?? 0;
     }
 
     public function countUserStats($user_id) {
+        $stats = [];
         $stmt = $this->db->prepare("SELECT 
             SUM(CASE WHEN status = 'menunggu' THEN 1 ELSE 0 END) as menunggu,
             SUM(CASE WHEN status = 'disetujui' THEN 1 ELSE 0 END) as disetujui,
             SUM(CASE WHEN status = 'selesai' THEN 1 ELSE 0 END) as selesai,
-            SUM(CASE WHEN status = 'ditolak' THEN 1 ELSE 0 END) as ditolak,
-            SUM(denda) as total_denda,
-            COUNT(*) as total
+            SUM(denda) as total_denda
             FROM peminjaman WHERE id_user = ?");
         $stmt->execute([$user_id]);
-        return $stmt->fetch();
+        $res = $stmt->fetch();
+        
+        return [
+            'menunggu' => $res['menunggu'] ?? 0,
+            'disetujui' => $res['disetujui'] ?? 0,
+            'selesai' => $res['selesai'] ?? 0,
+            'total_denda' => $res['total_denda'] ?? 0
+        ];
+    }
+
+    public function getMonthlyStats() {
+        $sql = "SELECT 
+                    DATE_FORMAT(tanggal_pinjam, '%Y-%m') as bulan,
+                    COUNT(*) as total_pinjam,
+                    SUM(CASE WHEN status = 'selesai' THEN 1 ELSE 0 END) as total_selesai
+                FROM peminjaman 
+                GROUP BY bulan 
+                ORDER BY bulan DESC 
+                LIMIT 6";
+        $stmt = $this->db->query($sql);
+        return array_reverse($stmt->fetchAll());
     }
 }
+

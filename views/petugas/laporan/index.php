@@ -16,6 +16,9 @@ $endDateVal = $_GET['end_date'] ?? '';
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h3 class="fw-bold text-dark m-0"><i class="bi bi-file-earmark-text me-2 text-primary"></i>Laporan Transaksi Peminjaman</h3>
     <div>
+        <a href="<?php echo htmlspecialchars($baseUrl); ?>/index.php?route=petugas/laporan/export-csv&search=<?php echo urlencode($searchVal); ?>&status=<?php echo urlencode($statusVal); ?>&start_date=<?php echo urlencode($startDateVal); ?>&end_date=<?php echo urlencode($endDateVal); ?>" class="btn btn-success shadow-sm me-2 d-print-none">
+            <i class="bi bi-file-earmark-excel me-1"></i> Export CSV
+        </a>
         <button type="button" class="btn btn-dark shadow-sm me-2 d-print-none" data-bs-toggle="modal" data-bs-target="#modalCetakLaporan">
             <i class="bi bi-printer me-1"></i> Cetak / Print
         </button>

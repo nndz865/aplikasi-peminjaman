@@ -15,7 +15,7 @@ Aplikasi web sistem informasi inventaris dan transaksi peminjaman alat praktik U
 
 ## Instalasi & Cara Menjalankan di Laragon
 1. Pastikan **Laragon** aktif (Apache & MySQL running).
-2. Letakkan folder `aplikasi-peminjaman-1` ke dalam `C:/laragon/www/`.
+2. Letakkan folder `aplikasi-peminjaman` ke dalam `C:/laragon/www/`.
 3. Buka **phpMyAdmin** (`http://localhost/phpmyadmin/`) dan buat database baru bernama `db_peminjaman`.
 4. Import file `database/db_peminjaman.sql` ke dalam database `db_peminjaman`.
 5. Akses aplikasi melalui browser di URL:
