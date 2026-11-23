@@ -12,14 +12,20 @@ require_once __DIR__ . '/../controllers/ProfileController.php';
 
 $route = $_GET['route'] ?? '';
 
-// Jika route kosong atau root, arahkan ke login atau dashboard sesuai session
+// Root publik menampilkan landing page; pengguna yang sudah login diarahkan ke dashboard.
 if (empty($route)) {
     if (isset($_SESSION['user_id'])) {
         AuthMiddleware::redirectByRole($_SESSION['role']);
     } else {
-        header('Location: index.php?route=login');
+        require_once __DIR__ . '/../views/public/landing.php';
         exit;
     }
+}
+
+// Route landing page publik dapat dibuka langsung melalui ?route=landing.
+if ($route === 'landing') {
+    require_once __DIR__ . '/../views/public/landing.php';
+    return;
 }
 
 // Coba route auth
