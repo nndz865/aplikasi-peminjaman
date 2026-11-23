@@ -31,6 +31,11 @@ require_once __DIR__ . '/../layouts/navbar.php';
     </div>
 </div>
 
+<div class="d-flex align-items-center justify-content-between mb-3">
+    <div class="small text-muted"><i class="bi bi-grid-3x3-gap me-1"></i><?php echo count($alats); ?> alat tersedia</div>
+    <?php if (!empty($_GET['search'])): ?><a href="<?php echo $config['base_url']; ?>/index.php?route=peminjam/daftar-alat" class="btn btn-sm btn-link text-decoration-none">Reset pencarian</a><?php endif; ?>
+</div>
+
 <div class="row g-4">
     <?php if (empty($alats)): ?>
         <div class="col-12">
@@ -44,12 +49,14 @@ require_once __DIR__ . '/../layouts/navbar.php';
     <?php else: ?>
         <?php foreach ($alats as $a): ?>
             <div class="col-md-4">
-                <div class="card shadow-sm h-100">
+                            <div class="card shadow-sm h-100 catalog-card">
                     <div class="card-body d-flex flex-column">
                         <img src="<?php echo !empty($a['gambar']) ? $config['base_url'] . '/assets/img/alat/' . rawurlencode($a['gambar']) : $config['base_url'] . '/assets/img/alat-placeholder.svg'; ?>" alt="<?php echo htmlspecialchars($a['nama_alat']); ?>" class="w-100 mb-3" style="height:180px;object-fit:cover;border-radius:12px">
                         <div class="d-flex justify-content-between align-items-start mb-2">
                             <h5 class="fw-bold text-dark mb-0"><?php echo htmlspecialchars($a['nama_alat']); ?></h5>
                             <span class="badge bg-light text-dark border"><?php echo htmlspecialchars($a['nama_kategori']); ?></span>
+                        </div>
+                        <div class="small text-success fw-semibold mb-2"><i class="bi bi-circle-fill me-1" style="font-size:.5rem"></i>Tersedia untuk dipinjam
                         </div>
                         <p class="text-muted small mb-3"><?php echo htmlspecialchars($a['deskripsi']); ?></p>
                         <div class="mt-auto">
