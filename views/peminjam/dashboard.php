@@ -117,6 +117,8 @@ $baseUrl = $config['base_url'] ?? '';
     <?php endif; ?>
 </div>
 
+<div class="card border-0 shadow-sm mb-4"><div class="card-body py-3"><div class="d-flex flex-wrap align-items-center justify-content-between gap-2"><div><span class="fw-bold text-dark"><i class="bi bi-compass-fill text-primary me-2"></i>Langkah berikutnya</span><span class="small text-muted ms-2">Kelola kebutuhan alat dari satu ruang kerja.</span></div><div class="d-flex gap-2"><a class="btn btn-sm btn-primary rounded-pill" href="<?php echo htmlspecialchars($baseUrl); ?>/index.php?route=peminjam/daftar-alat"><i class="bi bi-search me-1"></i>Cari alat</a><a class="btn btn-sm btn-outline-secondary rounded-pill" href="<?php echo htmlspecialchars($baseUrl); ?>/index.php?route=peminjam/riwayat"><i class="bi bi-clock-history me-1"></i>Periksa status</a></div></div></div></div>
+
 <div class="row g-4">
     <!-- Katalog Alat Tersedia -->
     <div class="col-lg-6">

@@ -8,6 +8,10 @@ $config = include __DIR__ . '/../../config/app.php';
             <button type="button" class="btn btn-sm btn-outline-dark me-2" id="sidebarToggle" aria-label="Buka menu navigasi"><i class="bi bi-list"></i></button>
             <i class="bi bi-grid-1x2-fill me-2 text-primary"></i> <span>Aplikasi Peminjaman Alat</span>
         </div>
+        <div class="d-none d-lg-flex align-items-center gap-2 ms-3">
+            <span class="badge bg-light text-dark border shadow-none py-2"><i class="bi bi-calendar3 me-1 text-primary"></i><?php echo date('d M Y'); ?></span>
+            <?php if (!empty($_SESSION['login_ip'])): ?><span class="small text-muted"><i class="bi bi-shield-check me-1 text-success"></i>Sesi aman</span><?php endif; ?>
+        </div>
         <ul class="navbar-nav ms-auto align-items-center flex-shrink-0">
             <?php
                 $dashboardRoutes = ['admin' => 'admin/dashboard', 'petugas' => 'petugas/dashboard', 'peminjam' => 'peminjam/dashboard'];

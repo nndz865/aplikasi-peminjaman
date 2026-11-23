@@ -115,7 +115,11 @@ $baseUrl = $config['base_url'] ?? '';
     <div><i class="bi bi-bell-fill me-2"></i><strong>Perlu tindakan:</strong> <?php echo (int)$pengajuanMenunggu; ?> pengajuan menunggu<?php echo $pengembalianTerlambat > 0 ? ' dan ' . (int)$pengembalianTerlambat . ' pengembalian terlambat.' : '.'; ?></div>
     <a href="<?php echo htmlspecialchars($baseUrl); ?>/index.php?route=petugas/persetujuan" class="btn btn-sm btn-dark">Tinjau Sekarang</a>
 </div>
+<?php else: ?>
+<div class="alert alert-success border-0 shadow-sm mb-4"><i class="bi bi-check-circle-fill me-2"></i><strong>Semua terkendali.</strong> Tidak ada pengajuan atau pengembalian yang membutuhkan tindakan segera.</div>
 <?php endif; ?>
+
+<div class="card border-0 shadow-sm mb-4"><div class="card-body py-3"><div class="d-flex flex-wrap align-items-center justify-content-between gap-2"><div><span class="fw-bold text-dark"><i class="bi bi-lightning-charge-fill text-warning me-2"></i>Panel operasional</span><span class="small text-muted ms-2">Akses cepat untuk menjaga alur transaksi tetap lancar.</span></div><div class="d-flex gap-2"><a class="btn btn-sm btn-outline-warning rounded-pill" href="<?php echo htmlspecialchars($baseUrl); ?>/index.php?route=petugas/persetujuan&status=menunggu">Menunggu: <?php echo (int)$pengajuanMenunggu; ?></a><a class="btn btn-sm btn-outline-danger rounded-pill" href="<?php echo htmlspecialchars($baseUrl); ?>/index.php?route=petugas/pengembalian">Terlambat: <?php echo (int)$pengembalianTerlambat; ?></a></div></div></div></div>
 
 <div class="card border-0 shadow-sm mb-4">
     <div class="card-header bg-white fw-bold py-3 px-4 d-flex justify-content-between align-items-center border-0">

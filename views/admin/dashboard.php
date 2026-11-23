@@ -117,9 +117,12 @@ $daftarPeminjam = $userModel->getAll('peminjam');
     </div>
 </div>
 
-<div class="alert alert-info border-0 shadow-sm mb-4">
-    <i class="bi bi-info-circle-fill me-2"></i><strong>Kontrol sistem:</strong> gunakan menu Data Alat, Kategori, dan Pengguna untuk menjaga data inventaris tetap akurat.
+<div class="row g-3 mb-4">
+    <div class="col-lg-8"><div class="alert alert-info border-0 shadow-sm mb-0 h-100 d-flex align-items-center"><i class="bi bi-info-circle-fill fs-4 me-3"></i><span><strong>Kontrol sistem:</strong> gunakan menu Data Alat, Kategori, dan Pengguna untuk menjaga data inventaris tetap akurat.</span></div></div>
+    <div class="col-lg-4"><div class="card border-0 shadow-sm h-100"><div class="card-body d-flex align-items-center gap-3"><div class="rounded-3 bg-success bg-opacity-10 text-success p-3 fs-4"><i class="bi bi-activity"></i></div><div><div class="small text-muted text-uppercase fw-bold">Kesehatan inventaris</div><div class="fw-bold text-dark"><?php echo $totalStok > 0 ? 'Operasional aktif' : 'Perlu data awal'; ?></div><small class="text-muted"><?php echo (int)$totalStok; ?> unit tercatat di sistem</small></div></div></div></div>
 </div>
+
+<div class="card border-0 shadow-sm mb-4"><div class="card-body py-3"><div class="d-flex flex-wrap align-items-center justify-content-between gap-2"><div><span class="fw-bold text-dark"><i class="bi bi-lightning-charge-fill text-warning me-2"></i>Prioritas hari ini</span><span class="small text-muted ms-2">Pantau area yang membutuhkan perhatian.</span></div><div class="d-flex gap-2"><a class="btn btn-sm btn-outline-warning rounded-pill" href="<?php echo htmlspecialchars($baseUrl); ?>/index.php?route=admin/alat">Stok menipis: <?php echo count($lowStockAlats); ?></a><a class="btn btn-sm btn-outline-primary rounded-pill" href="<?php echo htmlspecialchars($baseUrl); ?>/index.php?route=admin/log-aktivitas">Audit terbaru</a></div></div></div></div>
 
 <div class="card border-0 shadow-sm mb-4">
     <div class="card-header bg-white fw-bold py-3 px-4 border-0 d-flex justify-content-between align-items-center">
