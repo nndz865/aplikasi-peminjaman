@@ -28,6 +28,19 @@ if ($route === 'landing') {
     return;
 }
 
+// Halaman privasi, syarat, cookie, dan bantuan publik.
+if ($route === 'legal') {
+    require_once __DIR__ . '/../views/public/legal.php';
+    return;
+}
+
+// Halaman legal dapat dibuka melalui shortcut yang mudah dibaca.
+if (in_array($route, ['privacy', 'terms', 'cookies', 'help'], true)) {
+    $_GET['page'] = $route === 'privacy' ? 'privacy' : $route;
+    require_once __DIR__ . '/../views/public/legal.php';
+    return;
+}
+
 // Coba route auth
 if (file_exists(__DIR__ . '/auth.php')) {
     $handled = include __DIR__ . '/auth.php';

@@ -9,9 +9,39 @@ $dashboardRoutes = [
 ];
 $primaryRoute = $dashboardRoutes[$_SESSION['role'] ?? ''] ?? 'login';
 $primaryLabel = $isAuthenticated ? 'Buka dashboard' : 'Masuk ke aplikasi';
+$lang = ($_GET['lang'] ?? 'id') === 'en' ? 'en' : 'id';
+$landingText = $lang === 'en' ? [
+    'features' => 'Features', 'roles' => 'For whom', 'process' => 'How it works', 'security' => 'Security',
+    'login' => $isAuthenticated ? 'Open dashboard' : 'Sign in', 'language' => 'Bahasa Indonesia',
+    'heroEyebrow' => 'Equipment borrowing platform', 'heroTitle' => 'The right tools. <span>A clearer workflow.</span>',
+    'heroCopy' => 'One workspace to manage inventory, submit borrowing requests, validate applications, and track returns without losing the trail.',
+    'heroNote' => 'Built for Admin, Staff, and Borrower workflows.', 'backHome' => 'Home',
+    'privacy' => 'Privacy policy', 'terms' => 'Terms of service', 'cookies' => 'Cookie policy', 'help' => 'Help center'
+] : [
+    'features' => 'Keunggulan', 'roles' => 'Untuk siapa', 'process' => 'Cara kerja', 'security' => 'Keamanan',
+    'login' => $primaryLabel, 'language' => 'English',
+    'heroEyebrow' => 'Platform peminjaman alat praktikum', 'heroTitle' => 'Alat yang tepat. <span>Alur yang jelas.</span>',
+    'heroCopy' => 'Satu ruang kerja untuk mengelola inventaris, mengajukan peminjaman, memvalidasi permintaan, dan memantau pengembalian tanpa kehilangan jejak.',
+    'heroNote' => 'Dibuat untuk alur kerja Admin, Petugas, dan Peminjam.', 'backHome' => 'Beranda',
+    'privacy' => 'Kebijakan privasi', 'terms' => 'Syarat dan ketentuan', 'cookies' => 'Kebijakan cookie', 'help' => 'Pusat bantuan'
+];
+$otherLang = $lang === 'en' ? 'id' : 'en';
+$landingText += $lang === 'en' ? [
+    'previewLabel' => 'Workspace', 'previewTitle' => 'Borrowing workflow', 'previewHeading' => 'Complete one clear flow',
+    'flow1' => 'Choose equipment', 'flow1sub' => 'Find tools in the catalog', 'flow2' => 'Submit your request', 'flow2sub' => 'Add quantity and purpose',
+    'flow3' => 'Wait for validation', 'flow3sub' => 'Staff reviews your request', 'flow4' => 'Return with a record', 'flow4sub' => 'Keep history easy to track',
+    'flowStatus' => 'Workflow status is easy to follow', 'seeHow' => 'See how it works', 'ctaTitle' => 'Ready to make equipment borrowing more organized?',
+    'ctaCopy' => 'Sign in and use the workspace that matches your role.'
+] : [
+    'previewLabel' => 'Ruang kerja', 'previewTitle' => 'Alur peminjaman', 'previewHeading' => 'Selesaikan dalam satu alur',
+    'flow1' => 'Pilih alat', 'flow1sub' => 'Temukan alat dari katalog', 'flow2' => 'Ajukan kebutuhan', 'flow2sub' => 'Isi jumlah dan keperluan',
+    'flow3' => 'Tunggu validasi', 'flow3sub' => 'Petugas meninjau pengajuan', 'flow4' => 'Kembalikan tercatat', 'flow4sub' => 'Riwayat mudah dipantau',
+    'flowStatus' => 'Status alur mudah dipantau', 'seeHow' => 'Lihat cara kerja', 'ctaTitle' => 'Siap membuat peminjaman alat lebih teratur?',
+    'ctaCopy' => 'Masuk ke aplikasi dan gunakan ruang kerja yang sesuai dengan peran Anda.'
+];
 ?>
 <!DOCTYPE html>
-<html lang="id">
+<html lang="<?php echo $lang; ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -199,10 +229,11 @@ $primaryLabel = $isAuthenticated ? 'Buka dashboard' : 'Masuk ke aplikasi';
                 <span>LABLOAN<small>Inventory & lending system</small></span>
             </a>
             <nav class="nav-links" id="landingNav" aria-label="Navigasi utama">
-                <a href="#keunggulan">Keunggulan</a>
-                <a href="#peran">Untuk siapa</a>
-                <a href="#alur">Cara kerja</a>
-                <a href="#keamanan">Keamanan</a>
+                <a href="#keunggulan"><?php echo $landingText['features']; ?></a>
+                <a href="#peran"><?php echo $landingText['roles']; ?></a>
+                <a href="#alur"><?php echo $landingText['process']; ?></a>
+                <a href="#keamanan"><?php echo $landingText['security']; ?></a>
+                <a href="<?php echo $baseUrl; ?>/index.php?route=landing&lang=<?php echo $otherLang; ?>"><?php echo $landingText['language']; ?></a>
             </nav>
             <div class="nav-actions" id="landingActions">
                 <a class="btn-landing btn-landing-primary" href="<?php echo $baseUrl; ?>/index.php?route=<?php echo $primaryRoute; ?>"><?php echo $primaryLabel; ?> <i class="bi bi-arrow-up-right"></i></a>
@@ -215,25 +246,25 @@ $primaryLabel = $isAuthenticated ? 'Buka dashboard' : 'Masuk ke aplikasi';
         <section class="hero">
             <div class="container-wide hero-grid">
                 <div>
-                    <div class="eyebrow">Platform peminjaman alat praktikum</div>
-                    <h1>Alat yang tepat. <span>Alur yang jelas.</span></h1>
-                    <p class="hero-copy">Satu ruang kerja untuk mengelola inventaris, mengajukan peminjaman, memvalidasi permintaan, dan memantau pengembalian tanpa kehilangan jejak.</p>
+                    <div class="eyebrow"><?php echo $landingText['heroEyebrow']; ?></div>
+                    <h1><?php echo $landingText['heroTitle']; ?></h1>
+                    <p class="hero-copy"><?php echo $landingText['heroCopy']; ?></p>
                     <div class="hero-actions">
                         <a class="btn-landing btn-landing-primary" href="<?php echo $baseUrl; ?>/index.php?route=<?php echo $primaryRoute; ?>"><?php echo $primaryLabel; ?> <i class="bi bi-arrow-right"></i></a>
-                        <a class="btn-landing btn-landing-quiet" href="#alur">Lihat cara kerja <i class="bi bi-play-circle"></i></a>
+                        <a class="btn-landing btn-landing-quiet" href="#alur"><?php echo $lang === 'en' ? 'See how it works' : 'Lihat cara kerja'; ?> <i class="bi bi-play-circle"></i></a>
                     </div>
-                    <div class="hero-note"><i class="bi bi-check-circle-fill"></i> Dibuat untuk alur kerja Admin, Petugas, dan Peminjam.</div>
+                    <div class="hero-note"><i class="bi bi-check-circle-fill"></i> <?php echo $landingText['heroNote']; ?></div>
                 </div>
                 <div class="workspace-preview" aria-label="Ilustrasi alur peminjaman alat">
-                    <div class="preview-top"><div><span class="preview-label">Workspace</span><strong>Alur peminjaman</strong></div><div class="preview-dots"><span></span><span></span><span></span></div></div>
+                    <div class="preview-top"><div><span class="preview-label"><?php echo $landingText['previewLabel']; ?></span><strong><?php echo $landingText['previewTitle']; ?></strong></div><div class="preview-dots"><span></span><span></span><span></span></div></div>
                     <div class="preview-board">
                         <div class="preview-sidebar" aria-hidden="true"><div class="preview-side-line active"></div><div class="preview-side-line"></div><div class="preview-side-line"></div><div class="preview-side-line"></div><div class="preview-side-line"></div></div>
-                        <div class="preview-content"><div class="preview-heading">Selesaikan dalam satu alur</div><div class="preview-flow">
-                            <div class="flow-item"><span class="flow-number">01</span><span><strong>Pilih alat</strong><small>Temukan alat dari katalog</small></span></div>
-                            <div class="flow-item"><span class="flow-number">02</span><span><strong>Ajukan kebutuhan</strong><small>Isi jumlah dan keperluan</small></span></div>
-                            <div class="flow-item"><span class="flow-number">03</span><span><strong>Tunggu validasi</strong><small>Petugas meninjau pengajuan</small></span></div>
-                            <div class="flow-item"><span class="flow-number">04</span><span><strong>Kembalikan tercatat</strong><small>Riwayat tetap mudah dipantau</small></span></div>
-                        </div><div class="preview-status"><span class="status-dot"></span> Status alur mudah dipantau</div></div>
+                        <div class="preview-content"><div class="preview-heading"><?php echo $landingText['previewHeading']; ?></div><div class="preview-flow">
+                            <div class="flow-item"><span class="flow-number">01</span><span><strong><?php echo $landingText['flow1']; ?></strong><small><?php echo $landingText['flow1sub']; ?></small></span></div>
+                            <div class="flow-item"><span class="flow-number">02</span><span><strong><?php echo $landingText['flow2']; ?></strong><small><?php echo $landingText['flow2sub']; ?></small></span></div>
+                            <div class="flow-item"><span class="flow-number">03</span><span><strong><?php echo $landingText['flow3']; ?></strong><small><?php echo $landingText['flow3sub']; ?></small></span></div>
+                            <div class="flow-item"><span class="flow-number">04</span><span><strong><?php echo $landingText['flow4']; ?></strong><small><?php echo $landingText['flow4sub']; ?></small></span></div>
+                        </div><div class="preview-status"><span class="status-dot"></span> <?php echo $landingText['flowStatus']; ?></div></div>
                     </div>
                 </div>
             </div>
@@ -286,10 +317,10 @@ $primaryLabel = $isAuthenticated ? 'Buka dashboard' : 'Masuk ke aplikasi';
             <div class="container-wide security-layout"><div><div class="eyebrow" style="color: #f7ce46;">Tertib sejak awal</div><h2>Data dan tanggung jawab tetap berada di jalurnya.</h2><p>Pengalaman yang sederhana tidak berarti kontrol yang longgar. Sistem membedakan ruang kerja, mencatat aktivitas, dan menjaga setiap proses tetap dapat ditelusuri.</p></div><div class="security-points"><div class="security-point"><i class="bi bi-person-lock"></i><strong>Akses berbasis peran</strong><span>Menu dan proses mengikuti tanggung jawab Admin, Petugas, atau Peminjam.</span></div><div class="security-point"><i class="bi bi-journal-text"></i><strong>Aktivitas tercatat</strong><span>Peristiwa penting dalam sistem memiliki jejak untuk membantu pemantauan.</span></div><div class="security-point"><i class="bi bi-database-check"></i><strong>Data transaksi konsisten</strong><span>Pengajuan dan pengembalian diproses melalui alur aplikasi yang sama.</span></div><div class="security-point"><i class="bi bi-phone"></i><strong>Siap dipakai di berbagai layar</strong><span>Navigasi dan tindakan utama tetap mudah digunakan di desktop maupun mobile.</span></div></div></div>
         </section>
 
-        <section class="final-cta"><div class="container-wide"><h2>Siap membuat peminjaman alat lebih teratur?</h2><p>Masuk ke aplikasi dan gunakan ruang kerja yang sesuai dengan peran Anda.</p><a class="btn-landing" href="<?php echo $baseUrl; ?>/index.php?route=<?php echo $primaryRoute; ?>"><?php echo $primaryLabel; ?> <i class="bi bi-arrow-right"></i></a></div></section>
+        <section class="final-cta"><div class="container-wide"><h2><?php echo $landingText['ctaTitle']; ?></h2><p><?php echo $landingText['ctaCopy']; ?></p><a class="btn-landing" href="<?php echo $baseUrl; ?>/index.php?route=<?php echo $primaryRoute; ?>"><?php echo $primaryLabel; ?> <i class="bi bi-arrow-right"></i></a></div></section>
     </main>
 
-    <footer><div class="container-wide footer-wrap"><span class="footer-brand"><i class="bi bi-box-seam me-2"></i>LABLOAN</span><span>&copy; <span id="landingYear"></span> <?php echo htmlspecialchars($config['app_name']); ?>. Built for clearer operations.</span></div></footer>
+    <footer><div class="container-wide footer-wrap"><span class="footer-brand"><i class="bi bi-box-seam me-2"></i>LABLOAN</span><span>&copy; <span id="landingYear"></span> <?php echo htmlspecialchars($config['app_name']); ?>.</span><span class="footer-legal"><a href="<?php echo $baseUrl; ?>/index.php?route=legal&page=privacy&lang=<?php echo $lang; ?>"><?php echo $landingText['privacy']; ?></a> · <a href="<?php echo $baseUrl; ?>/index.php?route=legal&page=terms&lang=<?php echo $lang; ?>"><?php echo $landingText['terms']; ?></a> · <a href="<?php echo $baseUrl; ?>/index.php?route=legal&page=cookies&lang=<?php echo $lang; ?>"><?php echo $landingText['cookies']; ?></a> · <a href="<?php echo $baseUrl; ?>/index.php?route=legal&page=help&lang=<?php echo $lang; ?>"><?php echo $landingText['help']; ?></a></span></div></footer>
 </div>
 <script>
     (function () {
