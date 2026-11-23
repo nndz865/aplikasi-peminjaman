@@ -126,6 +126,15 @@ switch ($route) {
         $controller->exportCsv();
         break;
 
+    case 'admin/settings':
+        $controller = new SettingController();
+        $controller->index();
+        break;
+    case 'admin/settings/update':
+        $controller = new SettingController();
+        $controller->update();
+        break;
+
     default:
         return false;
 }

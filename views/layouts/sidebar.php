@@ -56,6 +56,11 @@ $config = include __DIR__ . '/../../config/app.php';
                     <i class="bi bi-clock-history"></i> Log Aktivitas
                 </a>
             </li>
+            <li>
+                <a href="<?php echo $config['base_url']; ?>/index.php?route=admin/settings" class="nav-link <?php echo (isset($_GET['route']) && strpos($_GET['route'], 'admin/settings') !== false) ? 'active' : ''; ?>">
+                    <i class="bi bi-gear"></i> Pengaturan Sistem
+                </a>
+            </li>
         <?php elseif ($role === 'petugas'): ?>
             <li class="nav-item">
                 <a href="<?php echo $config['base_url']; ?>/index.php?route=petugas/dashboard" class="nav-link <?php echo (isset($_GET['route']) && $_GET['route'] === 'petugas/dashboard') ? 'active' : ''; ?>">
