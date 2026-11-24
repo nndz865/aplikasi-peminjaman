@@ -5,3 +5,5 @@
 Thumbs.db
 /public/assets/uploads/*
 !/public/assets/uploads/.gitkeep
+.vercel
+.env*
