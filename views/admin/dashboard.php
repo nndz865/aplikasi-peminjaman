@@ -20,24 +20,24 @@ $userModel = new User();
 $daftarPeminjam = $userModel->getAll('peminjam');
 ?>
 
-<!-- Premium Banner -->
-<div class="card shadow-lg mb-4 border-0 overflow-hidden position-relative bg-dark text-white">
-    <div class="position-absolute end-0 bottom-0 opacity-10 pe-4 pb-2">
-        <i class="bi bi-tools display-1"></i>
+<header class="page-heading mb-4">
+    <div>
+        <p class="eyebrow-label mb-2">Administrasi sistem</p>
+        <h1 class="h3 mb-1">Peminjaman alat</h1>
+        <p class="text-muted mb-0">Ringkasan inventaris, akun, dan aktivitas yang perlu dipantau.</p>
     </div>
-    <div class="card-body p-4 p-md-5 position-relative z-1">
-        <span class="badge bg-primary text-white fw-semibold px-3 py-2 mb-2 rounded-pill"><i class="bi bi-shield-check me-1"></i> Dashboard</span>
-        <h1 class="display-6 fw-bold mb-2 text-white">Peminjaman Alat</h1>
-        <p class="lead text-light mb-0">Selamat datang, <strong class="text-warning"><?php echo htmlspecialchars($_SESSION['nama_lengkap'] ?? 'Administrator'); ?></strong>! Sistem berjalan optimal.</p>
+    <div class="page-heading-actions">
+        <a href="<?php echo htmlspecialchars($baseUrl); ?>/index.php?route=admin/alat/create" class="btn btn-primary"><i class="bi bi-plus-lg me-1"></i>Tambah alat</a>
+        <a href="<?php echo htmlspecialchars($baseUrl); ?>/index.php?route=admin/users/create" class="btn btn-outline-secondary">Tambah pengguna</a>
     </div>
-</div>
+</header>
 
-<!-- Quick actions -->
-<div class="row g-3 mb-4">
-    <div class="col-md-4"><a href="<?php echo htmlspecialchars($baseUrl); ?>/index.php?route=admin/users/create" class="card h-100 text-decoration-none text-dark"><div class="card-body d-flex align-items-center gap-3"><i class="bi bi-person-plus-fill fs-3 text-primary"></i><div><strong>Tambah Pengguna</strong><div class="small text-muted">Buat akun admin, petugas, atau peminjam</div></div><i class="bi bi-arrow-up-right ms-auto"></i></div></a></div>
-    <div class="col-md-4"><a href="<?php echo htmlspecialchars($baseUrl); ?>/index.php?route=admin/alat/create" class="card h-100 text-decoration-none text-dark"><div class="card-body d-flex align-items-center gap-3"><i class="bi bi-box-seam-fill fs-3 text-success"></i><div><strong>Tambah Inventaris</strong><div class="small text-muted">Catat alat baru ke katalog</div></div><i class="bi bi-arrow-up-right ms-auto"></i></div></a></div>
-    <div class="col-md-4"><a href="<?php echo htmlspecialchars($baseUrl); ?>/index.php?route=admin/log-aktivitas" class="card h-100 text-decoration-none text-dark"><div class="card-body d-flex align-items-center gap-3"><i class="bi bi-shield-check fs-3 text-warning"></i><div><strong>Audit Aktivitas</strong><div class="small text-muted">Pantau aktivitas pengguna</div></div><i class="bi bi-arrow-up-right ms-auto"></i></div></a></div>
-</div>
+<nav class="action-strip mb-4" aria-label="Aksi administrasi">
+    <span class="action-strip-label">Akses cepat</span>
+    <a href="<?php echo htmlspecialchars($baseUrl); ?>/index.php?route=admin/alat"><i class="bi bi-box-seam me-1"></i>Inventaris</a>
+    <a href="<?php echo htmlspecialchars($baseUrl); ?>/index.php?route=admin/users"><i class="bi bi-people me-1"></i>Pengguna</a>
+    <a href="<?php echo htmlspecialchars($baseUrl); ?>/index.php?route=admin/log-aktivitas"><i class="bi bi-clock-history me-1"></i>Log aktivitas</a>
+</nav>
 
 <!-- Statistik Cards -->
 <div class="row g-4 mb-4">

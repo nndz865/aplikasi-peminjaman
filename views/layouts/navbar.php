@@ -2,7 +2,7 @@
 $config = include __DIR__ . '/../../config/app.php';
 ?>
 <!-- Navbar Top -->
-<nav class="navbar navbar-top navbar-expand navbar-light px-3 px-md-4">
+<nav class="navbar navbar-top navbar-expand navbar-light px-3 px-md-4" aria-label="Navigasi aplikasi">
     <div class="container-fluid ps-0 pe-0">
         <div class="navbar-brand mb-0 h6 fw-bold text-dark text-truncate py-1" style="max-width: 55vw; min-width: 0;">
             <button type="button" class="btn btn-sm btn-outline-dark me-2" id="sidebarToggle" aria-label="Buka menu navigasi"><i class="bi bi-list"></i></button>

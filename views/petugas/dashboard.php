@@ -13,17 +13,17 @@ $recentPengajuan = $recentPengajuan ?? [];
 $baseUrl = $config['base_url'] ?? '';
 ?>
 
-<!-- Premium Banner -->
-<div class="card shadow-lg mb-4 border-0 overflow-hidden position-relative bg-dark text-white">
-    <div class="position-absolute end-0 bottom-0 opacity-10 pe-4 pb-2">
-        <i class="bi bi-clipboard-check display-1"></i>
+<header class="page-heading mb-4">
+    <div>
+        <p class="eyebrow-label mb-2">Operasional peminjaman</p>
+        <h1 class="h3 mb-1">Validasi dan pengembalian</h1>
+        <p class="text-muted mb-0">Tinjau pengajuan, proses pengembalian, dan pantau transaksi berjalan.</p>
     </div>
-    <div class="card-body p-4 p-md-5 position-relative z-1">
-        <span class="badge bg-warning text-dark fw-bold px-3 py-2 mb-2 rounded-pill"><i class="bi bi-shield-lock me-1"></i> Panel Petugas Lab</span>
-        <h1 class="display-6 fw-bold mb-2 text-white">Validasi & Monitoring Peminjaman</h1>
-        <p class="lead text-light mb-0">Halo, <strong class="text-warning"><?php echo htmlspecialchars($_SESSION['nama_lengkap'] ?? 'Petugas'); ?></strong>! Kelola persetujuan pinjam dan pemantauan pengembalian alat secara presisi.</p>
+    <div class="page-heading-actions">
+        <a href="<?php echo htmlspecialchars($baseUrl); ?>/index.php?route=petugas/persetujuan&status=menunggu" class="btn btn-primary">Tinjau pengajuan</a>
+        <a href="<?php echo htmlspecialchars($baseUrl); ?>/index.php?route=petugas/laporan" class="btn btn-outline-secondary">Laporan</a>
     </div>
-</div>
+</header>
 
 <!-- Quick actions -->
 <div class="row g-3 mb-4">

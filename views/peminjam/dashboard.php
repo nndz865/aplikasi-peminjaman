@@ -10,17 +10,17 @@ $riwayats = $riwayats ?? [];
 $baseUrl = $config['base_url'] ?? '';
 ?>
 
-<!-- Premium Banner -->
-<div class="card shadow-lg mb-4 border-0 overflow-hidden position-relative bg-dark text-white">
-    <div class="position-absolute end-0 bottom-0 opacity-10 pe-4 pb-2">
-        <i class="bi bi-box-seam display-1"></i>
+<header class="page-heading mb-4">
+    <div>
+        <p class="eyebrow-label mb-2">Ruang kerja peminjam</p>
+        <h1 class="h3 mb-1">Katalog dan riwayat alat</h1>
+        <p class="text-muted mb-0">Cari alat, kirim pengajuan, dan pantau status peminjaman Anda.</p>
     </div>
-    <div class="card-body p-4 p-md-5 position-relative z-1">
-        <span class="badge bg-success text-white fw-bold px-3 py-2 mb-2 rounded-pill"><i class="bi bi-mortarboard-fill me-1"></i> Panel Siswa Peminjam</span>
-        <h1 class="display-6 fw-bold mb-2 text-white">Katalog & Riwayat Peminjaman Alat</h1>
-        <p class="lead text-light mb-0">Halo, <strong class="text-warning"><?php echo htmlspecialchars($_SESSION['nama_lengkap'] ?? 'Peminjam'); ?></strong>! Ajukan peminjaman alat praktik dan pantau status serta denda Anda dengan mudah.</p>
+    <div class="page-heading-actions">
+        <a href="<?php echo htmlspecialchars($baseUrl); ?>/index.php?route=peminjam/daftar-alat" class="btn btn-primary">Buka katalog</a>
+        <a href="<?php echo htmlspecialchars($baseUrl); ?>/index.php?route=peminjam/pengajuan" class="btn btn-outline-secondary">Ajukan alat</a>
     </div>
-</div>
+</header>
 
 <!-- Quick actions -->
 <div class="row g-3 mb-4">
